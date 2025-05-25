@@ -1,0 +1,87 @@
+/* --- Navbar Base --- */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: white;
+  padding: 20px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 999;
+  transition: all 0.3s ease-in-out;
+  box-shadow: none;
+}
+
+/* --- Shrink & Shadow on Scroll --- */
+.navbar-scrolled {
+  padding: 10px 60px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Logo --- */
+.logo a {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #2c2c2c;
+  text-decoration: none;
+}
+
+.logo span {
+  color: purple;
+}
+
+/* --- Nav Links --- */
+.nav-links {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #2c2c2c;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.nav-links li a:hover,
+.nav-links li a.active {
+  color: purple;
+}
+
+/* --- Action Buttons --- */
+.nav-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.btn-login,
+.btn-sell {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.btn-login {
+  background-color: transparent;
+  color: purple;
+  border: 2px solid purple;
+}
+
+.btn-login:hover {
+  background-color: purple;
+  color: white;
+}
+
+.btn-sell {
+  background-color: purple;
+  color: white;
+}
+
+.btn-sell:hover {
+  opacity: 0.9;
+}

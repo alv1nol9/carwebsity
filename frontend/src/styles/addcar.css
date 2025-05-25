@@ -1,0 +1,38 @@
+.add-car-form {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #f9f9f9;
+}
+
+.add-car-form h2 {
+  color: #32004f;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.add-car-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.add-car-form input,
+.add-car-form textarea {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.add-car-form button {
+  padding: 10px;
+  background-color: #32004f;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}

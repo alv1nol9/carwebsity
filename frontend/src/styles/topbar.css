@@ -1,0 +1,13 @@
+.top-bar {
+  background-color: #32004f;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 20px;
+  font-size: 14px;
+}
+
+.contact-info span,
+.social-icons span {
+  margin-right: 15px;
+}
