@@ -19,6 +19,8 @@ const CarGrid = () => {
       });
   }, []);
 
+    console.log('🚀 CarGrid mounted');
+  console.log('🔗 API URL:', import.meta.env.VITE_API_URL);
   return (
     <div id="featured-cars" className="car-grid-section">
       <h2>Featured Cars</h2>
@@ -31,7 +33,18 @@ const CarGrid = () => {
         <div className="car-grid">
           {cars.map((car) => (
             <div className="car-card" key={car._id}>
-              <img src={car.image || '/placeholder.jpg'} alt={`${car.make} ${car.model}`} />
+                  <img
+                    src={
+                      car.image
+                        ? (car.image.startsWith('http') // <-- use absolute URL as-is
+                            ? car.image
+                            : `${import.meta.env.VITE_API_URL}${car.image}`) // <-- local image, serve from backend
+                        : '/placeholder.jpg'
+                    }
+                    alt={`${car.make} ${car.model}`}
+                    style={{ width: "100%", height: "150px", objectFit: "cover", display: "block" }}
+                    onError={e => { e.target.onerror = null; e.target.src = '/placeholder.jpg'; }}
+                  />
               <div className="car-info">
                 <h3>{car.make} {car.model}</h3>
                 <p>{car.year}</p>

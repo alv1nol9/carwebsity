@@ -1,40 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import '../styles/navbar.css';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import '../styles/Navbar.css'; // Make sure to create this CSS file!
 
-const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  return (
-    <div className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>
-      <div className="logo">
-        <NavLink to="/">Valley<span>Motors</span></NavLink>
-      </div>
-
-      <ul className="nav-links">
-        <li>
-          <NavLink to="/" className={({ isActive }) => isActive ? 'active' : ''}>Home</NavLink>
-          <NavLink to="/about" className={({ isActive }) => isActive ? 'active' : ''}>About</NavLink>
-        </li>
-      </ul>
-      <div className="nav-actions">
-        <NavLink to="/login" className={({ isActive }) => isActive ? 'active' : ''}>
-          <button className="btn-login">Login</button>
-        </NavLink>
-        <NavLink to="/admin/add-car" className={({ isActive }) => isActive ? 'active' : ''}>
-          <button className="btn-sell">Add Car</button>
-        </NavLink>
-      </div>
+const Navbar = () => (
+  <nav className="navbar">
+    <div className="navbar-left">
+      <span className="logo">
+        Valley<span className="logo-highlight">Motors</span>
+      </span>
     </div>
-  );
-};
+    <div className="navbar-center">
+      <Link to="/" className="nav-link">Home</Link>
+      <Link to="/about" className="nav-link">About</Link>
+    </div>
+    <div className="navbar-right">
+      <Link to="/login" className="login-btn">Login</Link>
+    </div>
+  </nav>
+);
 
 export default Navbar;

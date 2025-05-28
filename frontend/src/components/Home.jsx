@@ -1,4 +1,3 @@
-// frontend/src/components/Home.jsx
 import React from 'react';
 import HeroSection from './HeroSection';
 import SearchBar from './SearchBar';
@@ -9,7 +8,7 @@ const Home = () => {
     <>
       <HeroSection />
       <SearchBar />
-      <CarGrid />
+      <CarGrid />   {/* ← THIS is what actually shows the cars! */}
     </>
   );
 };

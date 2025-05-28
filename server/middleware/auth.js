@@ -9,7 +9,7 @@ const auth = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, 'your_jwt_secret'); // Replace with process.env.JWT_SECRET in production
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); // use your .env secret!
     req.user = decoded;
     next();
   } catch (err) {
@@ -26,7 +26,7 @@ const isAdmin = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, 'your_jwt_secret');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); // use your .env secret!
     if (!decoded.isAdmin) {
       return res.status(403).json({ error: 'Forbidden: Admins only' });
     }
