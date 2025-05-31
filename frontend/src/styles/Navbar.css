@@ -1,62 +1,87 @@
-.navbar {
+.navbar-main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 38px;
-  background: #fff;
-  border-bottom: 1px solid #f0f0f0;
-  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #1a2236;
+  padding: 18px 42px 18px 32px;
+  border-bottom: 2px solid #e6b80033;
+  box-shadow: 0 2px 16px 0 #1a223622;
+  position: sticky;
+  top: 0;
+  z-index: 30;
 }
 
 .logo {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #32104a;
+  font-size: 2.1rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -1px;
 }
-
 .logo-highlight {
-  color: #a020f0;
+  color: #e6b800;
+  margin-left: 4px;
 }
 
 .navbar-center {
   display: flex;
-  gap: 2.2rem;
+  gap: 36px;
 }
-
 .nav-link {
+  color: #fff;
+  font-weight: 600;
   text-decoration: none;
-  color: #500c75;
-  font-weight: 500;
-  font-size: 1.1rem;
-  transition: color 0.2s;
-  padding: 6px 12px;
-  border-radius: 6px;
+  font-size: 1.07rem;
+  padding-bottom: 2px;
+  position: relative;
+  transition: color 0.13s;
 }
-
+.nav-link:after {
+  content: "";
+  display: block;
+  margin: auto;
+  height: 2.5px;
+  width: 0px;
+  background: linear-gradient(90deg, #e6b800 60%, #fff 100%);
+  border-radius: 8px;
+  transition: width 0.22s;
+}
+.nav-link.active,
 .nav-link:hover {
-  background: #f2e9fc;
-  color: #a020f0;
+  color: #e6b800;
 }
-
-.navbar-right {
-  display: flex;
-  align-items: center;
+.nav-link.active:after,
+.nav-link:hover:after {
+  width: 70%;
 }
 
 .login-btn {
-  padding: 8px 18px;
-  background: #a020f0;
-  color: #fff;
-  border: none;
-  border-radius: 18px;
-  font-weight: 600;
+  background: linear-gradient(90deg, #e6b800, #ffd700 80%);
+  color: #1a2236;
+  font-weight: 700;
+  border-radius: 99px;
+  padding: 8px 30px;
+  font-size: 1.04rem;
   text-decoration: none;
-  transition: background 0.2s, color 0.2s;
-  margin-left: 1rem;
-  box-shadow: 0 1px 6px rgba(80,12,117,0.06);
+  box-shadow: 0 2px 16px #e6b80038;
+  border: none;
+  transition: background 0.13s, color 0.13s, transform 0.13s;
+}
+.login-btn:hover {
+  background: linear-gradient(90deg, #1a2236, #e6b800 90%);
+  color: #ffd700;
+  transform: translateY(-2px) scale(1.03);
 }
 
-.login-btn:hover {
-  background: #32104a;
-  color: #fff;
+@media (max-width: 700px) {
+  .navbar-main {
+    padding: 10px 12px 10px 12px;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .logo {
+    font-size: 1.1rem;
+  }
+  .navbar-center {
+    gap: 20px;
+  }
 }

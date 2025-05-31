@@ -1,22 +1,28 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import '../styles/Navbar.css'; // Make sure to create this CSS file!
+import { Link, useLocation } from 'react-router-dom';
+import '../styles/Navbar.css';
 
-const Navbar = () => (
-  <nav className="navbar">
-    <div className="navbar-left">
-      <span className="logo">
-        Valley<span className="logo-highlight">Motors</span>
-      </span>
-    </div>
-    <div className="navbar-center">
-      <Link to="/" className="nav-link">Home</Link>
-      <Link to="/about" className="nav-link">About</Link>
-    </div>
-    <div className="navbar-right">
-      <Link to="/login" className="login-btn">Login</Link>
-    </div>
-  </nav>
-);
+const Navbar = () => {
+  const location = useLocation();
+
+  return (
+    <nav className="navbar-main">
+      <div className="navbar-left">
+        <span className="logo">
+          Valley Road<span className="logo-highlight">Motors</span>
+        </span>
+      </div>
+      <div className="navbar-center">
+        <Link to="/" className={`nav-link${location.pathname === '/' ? ' active' : ''}`}>Home</Link>
+        <Link to="/cars" className={`nav-link${location.pathname === '/cars' ? ' active' : ''}`}>Cars</Link>
+        <Link to="/about" className={`nav-link${location.pathname === '/about' ? ' active' : ''}`}>About</Link>
+        <Link to="/contact" className={`nav-link${location.pathname === '/contact' ? ' active' : ''}`}>Contact</Link>
+      </div>
+      <div className="navbar-right">
+        <Link to="/login" className="login-btn">Login</Link>
+      </div>
+    </nav>
+  );
+};
 
 export default Navbar;

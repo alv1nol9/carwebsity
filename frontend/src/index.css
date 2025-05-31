@@ -1,0 +1,14 @@
+.main-container {
+  display: flex;
+  align-items: flex-start;      /* Sidebar stays at top */
+  gap: 2rem;                   /* Space between sidebar and grid */
+  padding: 2rem 0;
+}
+
+.car-search-sidebar {
+  flex: 0 0 320px;             /* Sidebar width */
+}
+
+.car-grid-section {
+  flex: 1;                     /* Car grid takes remaining space */
+}

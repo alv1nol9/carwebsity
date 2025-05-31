@@ -19,45 +19,55 @@ const CarGrid = () => {
       });
   }, []);
 
-    console.log('🚀 CarGrid mounted');
-  console.log('🔗 API URL:', import.meta.env.VITE_API_URL);
   return (
-    <div id="featured-cars" className="car-grid-section">
-      <h2>Featured Cars</h2>
+    <section id="featured-cars" className="car-grid-section">
+      <h2 className="car-grid-title">Featured Cars</h2>
 
       {loading ? (
-        <p>Loading cars...</p>
+        <p className="car-grid-loading">Loading cars...</p>
       ) : cars.length === 0 ? (
-        <p>No cars available at the moment.</p>
+        <p className="car-grid-empty">No cars available at the moment.</p>
       ) : (
         <div className="car-grid">
           {cars.map((car) => (
             <div className="car-card" key={car._id}>
-                  <img
-                    src={
-                      car.image
-                        ? (car.image.startsWith('http') // <-- use absolute URL as-is
-                            ? car.image
-                            : `${import.meta.env.VITE_API_URL}${car.image}`) // <-- local image, serve from backend
-                        : '/placeholder.jpg'
-                    }
-                    alt={`${car.make} ${car.model}`}
-                    style={{ width: "100%", height: "150px", objectFit: "cover", display: "block" }}
-                    onError={e => { e.target.onerror = null; e.target.src = '/placeholder.jpg'; }}
-                  />
-              <div className="car-info">
-                <h3>{car.make} {car.model}</h3>
-                <p>{car.year}</p>
-                <p className="price">KES {car.price.toLocaleString()}</p>
-                <Link to={`/cars/${car._id}`}>
-                  <button className="view-btn">View Car</button>
+              <div className="car-img-wrap">
+                <img
+                  src={
+                    car.image
+                      ? (car.image.startsWith('http')
+                          ? car.image
+                          : `${import.meta.env.VITE_API_URL}${car.image}`)
+                      : '/placeholder.jpg'
+                  }
+                  alt={`${car.make} ${car.model}`}
+                  className="car-img"
+                  onError={e => { e.target.onerror = null; e.target.src = '/placeholder.jpg'; }}
+                />
+                {car.status === "Available" && (
+                  <span className="car-badge">Available</span>
+                )}
+              </div>
+              <div className="car-card-body">
+                <div className="car-title-row">
+                  <span className="car-title">
+                    {car.year && <span className="car-year">{car.year}</span>} {car.make} {car.model}
+                  </span>
+                </div>
+                <div className="car-price-row">
+                  <span className="car-price">
+                    KES {Number(car.price).toLocaleString()}
+                  </span>
+                </div>
+                <Link to={`/cars/${car._id}`} className="view-btn">
+                  View Car
                 </Link>
               </div>
             </div>
           ))}
         </div>
       )}
-    </div>
+    </section>
   );
 };
 

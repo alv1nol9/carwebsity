@@ -10,10 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "bcrypt": "^6.0.0",
-    "dotenv": "^16.5.0",
-    "express-validator": "^7.2.1",
-    "mongoose": "^8.15.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.0"

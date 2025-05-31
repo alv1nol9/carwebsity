@@ -10,13 +10,25 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="hero-section">
-      <div className="hero-overlay">
-        <h1>Find Your Perfect Ride</h1>
-        <p>Discover top-quality cars at unbeatable prices</p>
-        <div className="hero-buttons">
-          <button className="btn-primary" onClick={handleScroll}>Browse Cars</button>
-          <button className="btn-outline">Get Import Quote</button>
+    <div className="hero-container">
+      {/* Replace the src with your actual car image */}
+      <img
+        src="/prado.png"
+        alt="Hero car"
+        className="hero-bg-car"
+      />
+      <div className="hero-content">
+        <div className="hero-title">Find Your Perfect Ride</div>
+        <div className="hero-sub">
+          Discover top-quality cars at unbeatable prices
+        </div>
+        <div className="hero-btn-row">
+          <button className="hero-btn-yellow" onClick={handleScroll}>
+            Browse Cars
+          </button>
+          <button className="hero-btn-outline">
+            Get Import Quote
+          </button>
         </div>
       </div>
     </div>

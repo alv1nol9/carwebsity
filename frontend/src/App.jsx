@@ -6,8 +6,10 @@ import CarDetails from './components/CarDetails';
 import Login from './components/Login';
 import AddCar from './components/AddCar';
 import AdminRoute from './components/AdminRoute';
+import About from './components/About'; 
+import Contact from './components/Contact'; 
+import FeaturedCarsPage from './components/BrowseCars';
 
-// Fallback for unmatched routes
 function NotFound() {
   return (
     <div className="flex flex-col items-center justify-center py-16">
@@ -28,7 +30,10 @@ export default function App() {
       <main className="container mx-auto p-4">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/cars" element={<FeaturedCarsPage />} />
+          <Route path="/about" element={<About />} />
           <Route path="/cars/:id" element={<CarDetails />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route
             path="/admin/add-car"
