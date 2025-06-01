@@ -12,3 +12,31 @@
 .car-grid-section {
   flex: 1;                     /* Car grid takes remaining space */
 }
+.cars-page-container {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.car-search-sidebar {
+  width: 320px;
+  min-width: 260px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #f6f7fa;
+  border-radius: 16px;
+  padding: 24px 20px;
+  box-shadow: 0 2px 24px #0001;
+}
+
+.car-grid-section {
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+.car-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+

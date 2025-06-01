@@ -1,44 +1,44 @@
+
 .main-hero {
-  min-height: 110vh;
-  background-image: url('/Pasted image.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   position: relative;
+  width: 100vw;
+  height: 69vh;         /* increase this! try 58vh, 70vh, or even 90vh */
+  min-height: 360px;    /* or 400px+ if you want even taller */
+  max-height: 700px;    /* optional: cap on huge screens */
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.main-hero::before {
-  content: "";
+.hero-bg-video {
   position: absolute;
-  inset: 0;
-  background: rgba(26,34,54,0.58); /* Navy overlay for contrast */
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100%;
+  object-fit: cover;
   z-index: 0;
   pointer-events: none;
 }
 
-.hero-center-content {
-  margin-top: 12vw;
-  text-align: center;
+
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100%;
+  background: rgba(26,34,54,0.68);
   z-index: 1;
+  pointer-events: none;
+}
+
+.hero-center-content {
   position: relative;
+  z-index: 2;
+  text-align: center;
+  width: 100%;
 }
-
-.hero-center-content h1 {
-  font-size: 2.9rem;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 34px;
-  line-height: 1.15;
-}
-.highlight-bold {
-  font-weight: 900;
-  color: #e6b800;
-}
-
 .hero-btn-row {
   display: flex;
   gap: 18px;
@@ -53,54 +53,116 @@
   font-weight: 700;
   border: none;
   cursor: pointer;
-  min-width: 180px;
-  transition: background 0.13s, color 0.13s, border 0.13s, box-shadow 0.13s;
-  border-radius: 6px;
+  min-width: 170px;
+  transition: background 0.18s, color 0.18s, border 0.16s, box-shadow 0.18s, transform 0.13s;
+  border-radius: 8px;
   margin-bottom: 8px;
-  box-shadow: 0 2px 10px #1a223608;
+  box-shadow: 0 2px 14px #1a223610, 0 1.5px 0 #e6b80033;
+  outline: none;
 }
+
 .main-btn {
-  background: #1a2236;
+  background: linear-gradient(90deg, #1a2236 75%, #e6b800 100%);
   color: #fff;
+  border: 2.2px solid #1a2236;
 }
-.main-btn:hover {
-  background: #e6b800;
+.main-btn:hover, .main-btn:focus {
+  background: linear-gradient(90deg, #e6b800 20%, #1a2236 100%);
   color: #1a2236;
+  border: 2.2px solid #e6b800;
+  transform: translateY(-2px) scale(1.04);
 }
+
 .light-btn {
   background: #fff;
   color: #1a2236;
-  border: 2.2px solid #e6b80055;
+  border: 2.2px solid #e6b80077;
 }
-.light-btn:hover {
+.light-btn:hover, .light-btn:focus {
   background: #e6b800;
   color: #fff;
   border: 2.2px solid #e6b800;
+  transform: translateY(-2px) scale(1.04);
+}
+.brands-section {
+  padding: 44px 0 50px 0;
+  background: #fff;
+  text-align: center;
 }
 
-.scroll-indicator {
-  margin-top: 42px;
-  color: #fff;
-  font-size: 1.08rem;
-  letter-spacing: 1.5px;
-}
-.scroll-arrow {
+.brands-heading {
   font-size: 2.2rem;
-  color: #e6b800;
-  animation: bounce 2s infinite;
-}
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  60% { transform: translateY(18px); }
+  font-weight: 900;
+  color: #1a2236;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.8rem;
 }
 
-@media (max-width: 800px) {
-  .hero-center-content h1 {
-    font-size: 2.0rem;
+.brands-subheading {
+  font-size: 1.19rem;
+  font-weight: 700;
+  color: #232c42;
+  margin-bottom: 0.2rem;
+  letter-spacing: 1px;
+}
+
+.brands-logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 36px 30px;
+  max-width: 980px;
+  margin: 0 auto;
+  margin-top: 36px;
+}
+
+.brand-logo-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  box-shadow: none;
+  transition: transform 0.14s;
+}
+.brand-logo-wrap:hover {
+  transform: scale(1.08);
+}
+
+.brand-logo-img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 8px;
+  filter: none;
+}
+
+.brand-logo-name {
+  font-size: 1.08rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #222c41;
+  margin-top: 3px;
+}
+
+@media (max-width: 900px) {
+  .brands-logo-grid {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 22px 7px;
   }
-  .hero-btn {
-    min-width: 120px;
-    font-size: 1.03rem;
-    padding: 12px 18px;
+  .brand-logo-img {
+    width: 58px;
+    height: 58px;
   }
+  .brand-logo-name {
+    font-size: 0.97rem;
+  }
+}
+.brands-logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 36px 30px;
+  max-width: 980px;
+  margin: 0 auto;
+  margin-top: 36px;
 }
