@@ -5,7 +5,8 @@ const carSchema = new mongoose.Schema({
   model: String,
   year: Number,
   price: Number,
-  image: String,
+  image: String,          // for old code, keep it for now
+  images: [String],       // new: multiple images
   description: String
 });
 

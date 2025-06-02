@@ -13,10 +13,11 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ storage });
+const upload = multer({ dest: 'uploads/' });
 
-router.post('/', upload.single('image'), (req, res) => {
-  res.json({ imageUrl: `/uploads/${req.file.filename}` });
+router.post('/multiple', upload.array('images', 8), (req, res) => {
+  const files = req.files.map(file => '/uploads/' + file.filename);
+  res.json({ images: files });
 });
 
 module.exports = router;

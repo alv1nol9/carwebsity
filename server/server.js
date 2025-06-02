@@ -13,6 +13,10 @@ const uploadRoutes = require('./routes/upload'); // We'll create this file
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+console.log("🚀 This is the REAL backend, running from", __dirname);
+
+
+
 // --- Middleware ---
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.originalUrl}`);
