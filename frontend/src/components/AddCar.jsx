@@ -4,13 +4,19 @@ import '../styles/addcar.css';
 const API_URL = 'http://localhost:5000'; // or use import.meta.env.VITE_API_URL
 
 const AddCar = () => {
-  const [car, setCar] = useState({
-    make: '',
-    model: '',
-    year: '',
-    price: '',
-    description: '',
-  });
+// Add to the initial state:
+const [car, setCar] = useState({
+  make: '',
+  model: '',
+  year: '',
+  price: '',
+  description: '',
+  mileage: '',     // NEW
+  drive: '',       // NEW (e.g. "4WD", "FWD", "RWD")
+  engineSize: '',  // NEW (e.g. "1800 CC")
+  fuelType: '',    // NEW (e.g. "Petrol", "Diesel")
+});
+
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [previews, setPreviews] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -89,6 +95,10 @@ const AddCar = () => {
         <input type="text" name="model" placeholder="Model" value={car.model} onChange={handleChange} required />
         <input type="number" name="year" placeholder="Year" value={car.year} onChange={handleChange} required />
         <input type="number" name="price" placeholder="Price (KES)" value={car.price} onChange={handleChange} required />
+        <input type="number"name="mileage" placeholder="Mileage (e.g. 122000)" value={car.mileage} onChange={handleChange}require/>
+        <input type="text" name="drive" placeholder="Drive (e.g. 4WD, FWD, RWD)"value={car.drive} onChange={handleChange} require/>
+        <input type="text"name="engineSize" placeholder="Engine Size (e.g. 1800 CC)" value={car.engineSize} onChange={handleChange}required/>
+        <input type="text" name="fuelType" placeholder="Fuel Type (e.g. Petrol, Diesel)" value={car.fuelType}onChange={handleChange}required/>
         <textarea name="description" placeholder="Description" value={car.description} onChange={handleChange} />
 
         <label style={{ marginTop: '12px', marginBottom: '6px', fontWeight: 'bold' }}>

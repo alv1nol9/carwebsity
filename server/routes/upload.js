@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({ storage }); // << Use your diskStorage!
 
 router.post('/multiple', upload.array('images', 8), (req, res) => {
   const files = req.files.map(file => '/uploads/' + file.filename);

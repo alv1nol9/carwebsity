@@ -1,9 +1,11 @@
+/* --- HERO SECTION --- */
+
 .main-hero {
   position: relative !important;
   width: 100vw !important;
-  height: 55vh !important;
+  height: 80vh !important;     /* Make the hero taller for portrait videos */
   min-height: 320px !important;
-  max-height: 460px !important;
+  max-height: 1000px !important;
   overflow: hidden !important;
   background: #161b2d !important;
   display: flex !important;
@@ -19,14 +21,12 @@
   height: 100% !important;
   min-width: 100vw !important;
   min-height: 100% !important;
-  object-fit: cover !important;  /* Try contain if you want full video with bars */
+  object-fit: cover !important;  /* Keeps video always filling the area */
   background: #161b2d !important;
   z-index: 0 !important;
   filter: brightness(0.7) !important;
   pointer-events: none !important;
 }
-
-
 
 .hero-overlay {
   position: absolute;
@@ -50,15 +50,65 @@
   justify-content: center;
 }
 
-/* Make buttons look good, keep them side by side */
-.hero-btn-row {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  justify-content: center;
-  align-items: center;
-  margin-top: 24px;
+.hero-center-content h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+  letter-spacing: -1px;
 }
+
+.hero-btn-row {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 20px !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+
+/* --- BUTTON STYLES --- */
+
+.hero-btn {
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background 0.18s, color 0.18s;
+  box-shadow: 0 2px 10px #1a223610;
+}
+
+.main-btn {
+  background: #192140;
+  color: #fff;
+}
+.main-btn:hover {
+  background: #1a2236;
+  color: #e6b800;
+}
+
+.light-btn {
+  background: #fff;
+  color: #192140;
+  border: 2px solid #e6b800;
+}
+.light-btn:hover {
+  background: #e6b800;
+  color: #192140;
+}
+
+.book-btn {
+  background: #e6b800;
+  color: #161b2d;
+  border: none;
+}
+.book-btn:hover {
+  background: #fff400;
+  color: #161b2d;
+}
+
+/* --- RESPONSIVE HERO SECTION --- */
 
 @media (max-width: 800px) {
   .main-hero {
@@ -99,7 +149,6 @@
   font-size: 1.08rem;
 }
 
-/* --- Responsive Brand Logos Grid --- */
 .brands-logo-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));

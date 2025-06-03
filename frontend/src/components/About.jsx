@@ -29,8 +29,7 @@ export default function About() {
         </div>
         <div className="about-contact">
           <div><FaMapMarkerAlt className="about-contact-icon gold" /> Valley Road, next to Silver Springs Hotel, Nairobi</div>
-          <div><FaPhoneAlt className="about-contact-icon navy" /> 0700 000 000</div>
-          <div><FaEnvelope className="about-contact-icon gold" /> info@valleymotors.co.ke</div>
+          <div><FaEnvelope className="about-contact-icon gold" /> valleyroadmotors@gmail.com</div>
         </div>
       </div>
       <Footer />

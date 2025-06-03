@@ -3,7 +3,6 @@ import '../styles/footer.css'
 import {
   FaFacebookF,
   FaInstagram,
-  FaYoutube,
   FaPhoneAlt,
   FaEnvelope,
   FaClock,
@@ -54,19 +53,19 @@ const Footer = ()=>{
               <FaClock className="footer-icon" /> Office Hours : 8 am - 5 pm Daily
             </li>
             <li>
-              <FaPhoneAlt className="footer-icon" /> 0727 200 200, 0798 500 000
+              <FaPhoneAlt className="footer-icon" />Nancy-+254 721 860497       <br />    Mary- +254 792 252870     <br />  Brandon- +254 794 372046
             </li>
             <li>
-              <FaEnvelope className="footer-icon" /> info@valleymotors.co.ke
+              <FaEnvelope className="footer-icon" />valleyroadmotors@gmail.com
             </li>
           </ul>
         </div>
       </div>
       <div className="footer-bottom">
         <div className="footer-socials">
-          <a href="#" aria-label="Facebook"><FaFacebookF /></a>
-          <a href="#" aria-label="Instagram"><FaInstagram /></a>
-          <a href="#" aria-label="YouTube"><FaYoutube /></a>
+          <a href="https://www.facebook.com/valleyroadmotorsltd" aria-label="Facebook"><FaFacebookF /></a>
+          <a href="https://www.instagram.com/valleyroadmotors/" aria-label="Instagram"><FaInstagram /></a>
+          
         </div>
         <div className="footer-copyright">
           Copyright &copy; 2025 VALLEY ROAD MOTORS. All Rights Reserved. | Privacy Policy &amp; Terms Of Use

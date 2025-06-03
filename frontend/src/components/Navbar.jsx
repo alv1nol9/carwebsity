@@ -1,9 +1,17 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { isLoggedIn, isAdmin } from '../utils/auth';
 import '../styles/Navbar.css';
 
 const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+    window.location.reload(); // optional: force refresh to reset state
+  };
 
   return (
     <nav className="navbar-main">
@@ -17,9 +25,19 @@ const Navbar = () => {
         <Link to="/cars" className={`nav-link${location.pathname === '/cars' ? ' active' : ''}`}>Cars</Link>
         <Link to="/about" className={`nav-link${location.pathname === '/about' ? ' active' : ''}`}>About</Link>
         <Link to="/contact" className={`nav-link${location.pathname === '/contact' ? ' active' : ''}`}>Contact</Link>
+        {/* Show Add Car for admin only */}
+        {isAdmin() && (
+          <Link to="/admin/add-car" className="nav-link">Add Car</Link>
+        )}
       </div>
       <div className="navbar-right">
-        <Link to="/login" className="login-btn">Login</Link>
+        {!isLoggedIn() && (
+          <Link to="/login" className="login-btn">Login</Link>
+                  )}
+          {isLoggedIn() && (
+            <button onClick={handleLogout} className="login-btn">Logout</button>
+          )}
+
       </div>
     </nav>
   );

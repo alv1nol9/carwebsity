@@ -8,6 +8,7 @@ const CarDetails = () => {
   const navigate = useNavigate();
   const [car, setCar] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [selectedIdx, setSelectedIdx] = useState(0);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/cars/${id}`)
@@ -15,6 +16,7 @@ const CarDetails = () => {
       .then((data) => {
         setCar(data);
         setLoading(false);
+        setSelectedIdx(0); // Reset when changing car
       })
       .catch(() => setLoading(false));
   }, [id]);
@@ -37,30 +39,106 @@ const CarDetails = () => {
   if (loading) return <div className="car-details-loading">Loading...</div>;
   if (!car || car.message === "Car not found") return <div className="car-details-loading">Car not found</div>;
 
+  // Prepare images array fallback for old data
+  const images =
+    car.images && car.images.length > 0
+      ? car.images
+      : car.image
+        ? [car.image]
+        : ["/default-car.jpg"];
+
+  // Build correct image src (support local uploads & remote links)
+  const getImgSrc = (img) =>
+    img.startsWith("http") ? img : `${import.meta.env.VITE_API_URL}${img}`;
+
+  // Carousel navigation
+  const prevImg = () => setSelectedIdx(idx => (idx === 0 ? images.length - 1 : idx - 1));
+  const nextImg = () => setSelectedIdx(idx => (idx === images.length - 1 ? 0 : idx + 1));
+
   return (
     <div className="car-details-page">
-      <div className="car-details-container">
-        {/* Car details layout */}
-        <div className="car-details-images">
-          <img src={car.image || '/default-car.jpg'} alt={car.make + ' ' + car.model} className="main-car-image" />
+      <div className="car-detail-main">
+        {/* Gallery */}
+        <div className="car-gallery-section">
+          <div className="main-img-wrapper">
+            {images.length > 1 && (
+              <button className="gallery-arrow left" onClick={prevImg}>‹</button>
+            )}
+            <img
+              src={getImgSrc(images[selectedIdx])}
+              alt={`${car.make} ${car.model}`}
+              className="main-img"
+              onError={e => { e.target.onerror = null; e.target.src = '/default-car.jpg'; }}
+            />
+            {images.length > 1 && (
+              <button className="gallery-arrow right" onClick={nextImg}>›</button>
+            )}
+          </div>
+          {images.length > 1 && (
+            <div className="thumb-row">
+              {images.map((img, idx) => (
+                <img
+                  src={getImgSrc(img)}
+                  key={idx}
+                  alt={`thumb-${idx}`}
+                  className={`thumb-img ${selectedIdx === idx ? "active" : ""}`}
+                  onClick={() => setSelectedIdx(idx)}
+                  onError={e => { e.target.onerror = null; e.target.src = '/default-car.jpg'; }}
+                />
+              ))}
+            </div>
+          )}
         </div>
-        <div className="car-details-info">
+        {/* Details */}
+        <div className="car-info-section">
           <h1>{car.make} {car.model}</h1>
-          <div>{car.description}</div>
-          <div>Year: {car.year}</div>
-          <div>Price: {car.price}</div>
-          {/* More car info ... */}
-        <div className="car-actions">
-            <a href={`https://wa.me/254700000000?text=I want to enquire about the ${car.make} ${car.model}`} className="whatsapp-btn" target="_blank" rel="noopener noreferrer">
-              <span role="img" aria-label="WhatsApp">💬</span> Enquire via WhatsApp
+          <div className="car-price">
+            KES {Number(car.price).toLocaleString()}
+          </div>
+          <div className="car-desc">{car.description}</div>
+          <div className="car-specs">
+            <span><b>Year:</b> {car.year}</span>
+            {/* Add more specs here */}
+          </div>
+          <div className="cta-row">
+            <a href={`https://wa.me/254700000000?text=I want to enquire about the ${car.make} ${car.model}`} className="wa-btn" target="_blank" rel="noopener noreferrer">
+              💬 Enquire via WhatsApp
             </a>
             <a href="tel:0700000000" className="call-btn">
-              <span role="img" aria-label="Call">📞</span> Call now
+              📞 Call now
             </a>
             {isAdmin() && (
               <button className="delete-btn" onClick={handleDelete}>Delete</button>
             )}
           </div>
+          <div className="vehicle-details-table">
+          <h3>Vehicle Details</h3>
+          <table>
+            <tbody>
+              <tr>
+                <td>Year of manufacture</td>
+                <td>{car.year}</td>
+              </tr>
+              <tr>
+                <td>Mileage</td>
+                <td>{car.mileage ? `${Number(car.mileage).toLocaleString()} km` : '—'}</td>
+              </tr>
+              <tr>
+                <td>Drive</td>
+                <td>{car.drive || '—'}</td>
+              </tr>
+              <tr>
+                <td>Engine Size</td>
+                <td>{car.engineSize || '—'}</td>
+              </tr>
+              <tr>
+                <td>Fuel Type</td>
+                <td>{car.fuelType || '—'}</td>
+              </tr>
+            </tbody>
+          </table>
+</div>
+
         </div>
       </div>
     </div>

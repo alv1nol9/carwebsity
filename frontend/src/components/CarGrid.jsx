@@ -14,18 +14,28 @@ const CarGrid = ({ cars, loading }) => (
         {cars.map((car) => (
         <div className="car-card-dark" key={car._id}>
           <div className="car-img-wrap-dark">
-            <img
+          <img
               src={
-                car.image
-                  ? car.image.startsWith('http')
-                    ? car.image
-                    : `${import.meta.env.VITE_API_URL}${car.image}`
-                  : '/placeholder.jpg'
+                car.images && car.images.length > 0
+                  ? (
+                      car.images[0].startsWith('http')
+                        ? car.images[0]
+                        : `${import.meta.env.VITE_API_URL}${car.images[0]}`
+                    )
+                  : car.image
+                    ? (
+                        car.image.startsWith('http')
+                          ? car.image
+                          : `${import.meta.env.VITE_API_URL}${car.image}`
+                      )
+                    : '/placeholder.jpg'
               }
               alt={`${car.make} ${car.model}`}
               className="car-img-dark"
               onError={e => { e.target.onerror = null; e.target.src = '/placeholder.jpg'; }}
             />
+
+
             {car.status === "Available" && (
               <span className="car-status-badge">AVAILABLE</span>
             )}

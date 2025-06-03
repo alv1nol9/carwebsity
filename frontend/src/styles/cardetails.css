@@ -1,141 +1,205 @@
 .car-details-page {
-  padding: 48px 0;
-  background: #f4f7fb;
   min-height: 90vh;
+  background: #f7f8fa;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 36px 0;
 }
 
-.car-details-container {
+.car-detail-main {
   display: flex;
   gap: 44px;
   max-width: 1100px;
+  width: 98vw;
+  margin: 0 auto;
+  align-items: flex-start;
+}
+
+.car-gallery-section {
+  flex: 1.1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-img-wrapper {
+  position: relative;
+  width: 500px;
+  height: 375px;
+  background: #181f32;
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-img {
   width: 100%;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 32px #1a223615;
-  padding: 36px 32px;
+  height: 100%;
+  object-fit: cover;
 }
 
-.car-details-images {
-  flex: 1.2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.main-car-image {
-  width: 350px;
-  height: 230px;
-  object-fit: cover;
-  border-radius: 7px;
-  box-shadow: 0 2px 16px #1a22362a;
-  margin-bottom: 18px;
-  border: 2px solid #e6b80044;
-}
-.car-thumbnails {
-  display: flex;
-  gap: 9px;
-}
-.thumbnail {
-  width: 60px;
-  height: 38px;
-  object-fit: cover;
-  border-radius: 8px;
-  border: 2px solid #e6b80044;
-  cursor: pointer;
-  transition: border 0.13s;
-}
-.thumbnail:hover {
-  border: 2px solid #e6b800;
-}
-
-.car-details-info {
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  justify-content: flex-start;
-}
-.car-details-info h1 {
-  font-size: 2.2rem;
-  color: #1a2236;
-  margin-bottom: 4px;
-}
-.car-desc {
-  color: #334;
-  font-size: 1.08rem;
-  margin-bottom: 12px;
-}
-.car-specs span:first-child {
-  font-weight: 600;
-  color: #e6b800;
-  margin-right: 6px;
-}
-.car-price {
-  color: #e6b800;
-  font-weight: 800;
-  font-size: 1.18rem;
-}
-.car-actions {
-  display: flex;
-  gap: 18px;
-  margin-top: 10px;
-}
-.whatsapp-btn, .call-btn {
+.gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.6rem;
+  background: #fff9;
   border: none;
-  text-decoration: none;
-  padding: 12px 22px;
-  border-radius: 5px;
-  font-weight: 700;
-  font-size: 1.05rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: background 0.13s, color 0.13s;
+  border-radius: 50%;
+  padding: 0 10px;
+  cursor: pointer;
+  z-index: 1;
+  color: #4527a0;
 }
-.whatsapp-btn {
+.gallery-arrow.left { left: 12px; }
+.gallery-arrow.right { right: 12px; }
+
+.thumb-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+  justify-content: center;
+}
+.thumb-img {
+  width: 68px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 2px solid #e6b80055;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: border 0.15s, opacity 0.12s;
+}
+.thumb-img.active, .thumb-img:hover {
+  border: 2px solid #4527a0;
+  opacity: 1;
+}
+
+.car-info-section {
+  flex: 2;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 22px #1a223620;
+  padding: 34px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.car-price {
+  font-size: 2rem;
+  color: #4527a0;
+  font-weight: 900;
+  margin: 16px 0 10px 0;
+}
+
+.car-desc {
+  color: #232435;
+  font-size: 1.14rem;
+  margin-bottom: 18px;
+}
+
+.car-specs {
+  margin-bottom: 18px;
+  color: #555778;
+  font-size: 1.01rem;
+}
+
+.cta-row {
+  display: flex;
+  gap: 18px;
+  margin-top: 14px;
+}
+
+.wa-btn {
   background: #25d366;
   color: #fff;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s;
 }
-.whatsapp-btn:hover {
-  background: #128c7e;
-}
+.wa-btn:hover { background: #128c7e; }
+
 .call-btn {
-  background: #1a2236;
+  background: #181f32;
   color: #fff;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s;
 }
-.call-btn:hover {
-  background: #e6b800;
-  color: #1a2236;
-}
+.call-btn:hover { background: #4e4e4e; }
 
-@media (max-width: 900px) {
-  .car-details-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 26px;
-    padding: 22px 8vw;
-  }
-  .main-car-image {
-    width: 90vw;
-    max-width: 430px;
-  }
-}
 .delete-btn {
-  background: #e53935;
+  background: #e74c3c;
   color: #fff;
-  font-weight: 700;
-  padding: 10px 30px;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
   border: none;
-  border-radius: 7px;
-  margin-top: 22px;
-  box-shadow: 0 2px 10px #e5393520;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.18s, transform 0.13s;
+  margin-left: 12px;
+  transition: background 0.14s;
 }
-.delete-btn:hover {
-  background: #b71c1c;
-  transform: scale(1.045);
+.delete-btn:hover { background: #a82014; }
+
+@media (max-width: 950px) {
+  .car-detail-main { flex-direction: column; gap: 24px; }
+  .car-info-section { padding: 22px 12px; }
+  .main-img-wrapper { width: 96vw; max-width: 420px; }
+}
+/* Navy and Gold Colors */
+:root {
+  --vrm-navy: #181f32;
+  --vrm-navy-light: #222d48;
+  --vrm-gold: #e6b800;
+  --vrm-white: #fff;
+  --vrm-gray: #c8cbe6;
 }
 
+/* --- Vehicle Details Table --- */
+.vehicle-details-table {
+  margin-top: 30px;
+  background: var(--vrm-navy-light);
+  border-radius: 12px;
+  padding: 22px 24px;
+  box-shadow: 0 2px 18px #181f3220;
+  color: var(--vrm-white);
+  border-left: 6px solid var(--vrm-gold);
+}
+
+.vehicle-details-table h3 {
+  font-size: 1.18rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+  color: var(--vrm-gold);
+  letter-spacing: 0.5px;
+}
+
+.vehicle-details-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.vehicle-details-table td {
+  padding: 11px 14px;
+  font-size: 1.05rem;
+  color: var(--vrm-white);
+  background: transparent;
+}
+
+.vehicle-details-table tr:not(:last-child) td {
+  border-bottom: 1px solid var(--vrm-gray);
+}
+
+.vehicle-details-table td:first-child {
+  font-weight: 600;
+  color: var(--vrm-gold);
+  min-width: 160px;
+}
