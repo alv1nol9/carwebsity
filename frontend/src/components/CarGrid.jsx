@@ -2,6 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/cargrid.css'
 
+function getImageUrl(img) {
+  if (!img) return '/placeholder.jpg';
+  if (img.startsWith('http')) return img;
+  // Always ensure there's a slash between the base URL and the path
+  return `${import.meta.env.VITE_API_URL}${img.startsWith('/') ? '' : '/'}${img}`;
+}
+
 const CarGrid = ({ cars, loading }) => (
   <section id="featured-cars" className="car-grid-section">
     <h2 className="car-grid-title">Featured Cars</h2>
@@ -14,20 +21,12 @@ const CarGrid = ({ cars, loading }) => (
         {cars.map((car) => (
         <div className="car-card-dark" key={car._id}>
           <div className="car-img-wrap-dark">
-          <img
+         <img
               src={
                 car.images && car.images.length > 0
-                  ? (
-                      car.images[0].startsWith('http')
-                        ? car.images[0]
-                        : `${import.meta.env.VITE_API_URL}${car.images[0]}`
-                    )
+                  ? getImageUrl(car.images[0])
                   : car.image
-                    ? (
-                        car.image.startsWith('http')
-                          ? car.image
-                          : `${import.meta.env.VITE_API_URL}${car.image}`
-                      )
+                    ? getImageUrl(car.image)
                     : '/placeholder.jpg'
               }
               alt={`${car.make} ${car.model}`}

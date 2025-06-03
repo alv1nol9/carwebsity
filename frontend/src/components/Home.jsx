@@ -14,7 +14,7 @@ export default function Home() {
     navigate("/contact");
   };
   const handleTestDrive = () => {
-    navigate("/test-drive"); // Change route as needed!
+    navigate("/contact"); 
   };
 
   return (
