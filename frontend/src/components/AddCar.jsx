@@ -101,7 +101,14 @@ const AddCar = () => {
         <textarea name="description" placeholder="Description" value={car.description} onChange={handleChange} />
 
         <label>Car Images (You can select multiple):</label>
-        <input type="file" accept="image/*" multiple onChange={handleFileChange} />
+      <input
+        type="file"
+        name="images"
+        accept="image/*"
+        multiple
+        onChange={handleFileChange}
+      />
+
 
         {previews.length > 0 && (
           <div style={{ display: 'flex', gap: 10, margin: '12px 0', flexWrap: 'wrap' }}>
