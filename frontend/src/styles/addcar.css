@@ -1,38 +1,112 @@
 .add-car-form {
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background: #f9f9f9;
+  max-width: 500px;
+  margin: 48px auto;
+  padding: 32px 28px 28px 28px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 6px 32px 0 #2b13333a;
+  border: 1.5px solid #e6b80044;
+  display: flex;
+  flex-direction: column;
 }
 
 .add-car-form h2 {
-  color: #32004f;
   text-align: center;
-  margin-bottom: 20px;
-}
-
-.add-car-form form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  font-size: 2rem;
+  color: #4B2B99; /* a deep purple */
+  font-weight: 800;
+  margin-bottom: 24px;
+  letter-spacing: -0.5px;
 }
 
 .add-car-form input,
+.add-car-form textarea,
+.add-car-form select {
+  width: 100%;
+  padding: 11px 14px;
+  margin-bottom: 18px;
+  font-size: 1rem;
+  border: 1.5px solid #e6b80033;
+  border-radius: 8px;
+  background: #faf8ff;
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.add-car-form input:focus,
+.add-car-form textarea:focus {
+  border-color: #b266ff;
+  background: #f3ecff;
+}
+
 .add-car-form textarea {
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 16px;
+  min-height: 82px;
+  resize: vertical;
+}
+
+.add-car-form label {
+  font-size: 1rem;
+  color: #301966;
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
 }
 
 .add-car-form button {
-  padding: 10px;
-  background-color: #32004f;
-  color: white;
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, #7b2ff2, #f357a8);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.07rem;
   border: none;
-  border-radius: 6px;
-  font-weight: bold;
+  border-radius: 8px;
+  margin-top: 8px;
+  box-shadow: 0 2px 16px #f8a0e44a;
   cursor: pointer;
+  transition: background 0.18s, transform 0.12s;
+}
+
+.add-car-form button:hover {
+  background: linear-gradient(90deg, #5f23ae, #f57a98);
+  transform: translateY(-2px) scale(1.025);
+}
+
+.add-car-form .image-preview-row {
+  display: flex;
+  gap: 12px;
+  margin: 18px 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.add-car-form .image-preview-row img {
+  width: 82px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 7px;
+  border: 2px solid #e6b80033;
+  background: #fafafa;
+  box-shadow: 0 2px 6px #ddd3;
+}
+
+@media (max-width: 600px) {
+  .add-car-form {
+    max-width: 98vw;
+    padding: 14px 3vw 22px 3vw;
+  }
+
+  .add-car-form h2 {
+    font-size: 1.45rem;
+  }
+
+  .add-car-form button {
+    font-size: 0.99rem;
+    padding: 11px;
+  }
+
+  .add-car-form .image-preview-row img {
+    width: 60px;
+    height: 44px;
+  }
 }
