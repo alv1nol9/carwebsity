@@ -2,6 +2,35 @@ const express = require('express');
 const router = express.Router();
 const Car = require('../models/Car');
 const { isAdmin } = require('../middleware/auth');
+const multer = require('multer');
+const { storage } = require('../utils/cloudinary');
+const upload = multer({ storage });
+
+// POST new car with image upload (admin only)
+router.post('/', isAdmin, upload.array('images', 5), async (req, res) => {
+  console.log('🔥 Cloudinary route hit');
+console.log('📂 req.files =', req.files);
+
+  try {
+    const { make, model, year, price, description } = req.body;
+    const imageUrls = req.files.map(file => file.path);
+
+    const newCar = new Car({
+      make,
+      model,
+      year,
+      price,
+      description,
+      images: imageUrls,
+    });
+
+    await newCar.save();
+    res.status(201).json(newCar);
+  } catch (err) {
+    console.error('Error adding car:', err);
+    res.status(500).json({ message: 'Something went wrong' });
+  }
+});
 
 // GET all cars
 router.get('/', async (req, res) => {
@@ -10,17 +39,6 @@ router.get('/', async (req, res) => {
     res.json(cars);
   } catch (err) {
     res.status(500).json({ message: err.message });
-  }
-});
-
-// POST new car (admin only)
-router.post('/', isAdmin, async (req, res) => {
-  try {
-    const newCar = new Car(req.body);
-    await newCar.save();
-    res.status(201).json(newCar);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
   }
 });
 

@@ -1,23 +1,18 @@
 const express = require('express');
-const multer = require('multer');
-const path = require('path');
-
 const router = express.Router();
+const multer = require('multer');
+const { storage } = require('../utils/cloudinary'); // use your configured storage
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/');
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
+const upload = multer({ storage });
+
+// Upload multiple images
+router.post('/multiple', upload.array('images', 5), (req, res) => {
+  // Cloudinary URLs will be in req.files
+  if (!req.files || req.files.length === 0) {
+    return res.status(400).json({ message: 'No files uploaded' });
   }
-});
-
-const upload = multer({ storage }); // << Use your diskStorage!
-
-router.post('/multiple', upload.array('images', 8), (req, res) => {
-  const files = req.files.map(file => '/uploads/' + file.filename);
-  res.json({ images: files });
+  const imageUrls = req.files.map(file => file.path);
+  res.json({ imageUrls });
 });
 
 module.exports = router;

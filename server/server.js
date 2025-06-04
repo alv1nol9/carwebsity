@@ -8,7 +8,8 @@ const path = require('path');
 // Route imports
 const carRoutes = require('./routes/carRoutes');
 const authRoutes = require('./routes/authRoutes');
-const uploadRoutes = require('./routes/upload'); // We'll create this file
+const uploadRoutes = require('./routes/upload');
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -22,24 +23,40 @@ app.use((req, res, next) => {
   console.log(`${req.method} ${req.originalUrl}`);
   next();
 });
-app.use(cors());
+
+app.use(cors({
+  origin: [
+    'https://carwebsity.vercel.app',
+    'https://carwebsity-ek3x4pdna-alv1nols-projects.vercel.app',
+    'http://localhost:5173', // optional, for local dev
+  ],
+  credentials: true,
+}));
 app.use(express.json());
 
 // --- Serve Uploaded Images ---
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 // --- API Routes ---
 app.use('/api/cars', carRoutes);
 app.use('/api/auth', authRoutes);
+
 app.use('/api/upload', uploadRoutes);
+
+
 
 console.log('🔌 Mounted /api/cars, /api/auth, and /api/upload');
 
+ app.get('/', (req, res) => {
+  res.send('Welcome to the Carwebsity API!');
+});
 // --- Global Ping ---
 app.get('/ping-global', (req, res) => {
   console.log('[global] /ping-global hit');
   return res.json({ pong: true });
 });
+
+
 
 // --- Connect to MongoDB and Start Server ---
 mongoose
