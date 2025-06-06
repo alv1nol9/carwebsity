@@ -72,4 +72,29 @@ router.delete('/:id', isAdmin, async (req, res) => {
   }
 });
 
+// ...your existing routes above...
+
+// GET all unique brands (makes)
+router.get('/brands', async (req, res) => {
+  try {
+    const brands = await Car.distinct('make');
+    res.json(brands);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// GET all unique models for a brand
+router.get('/models', async (req, res) => {
+  try {
+    const { brand } = req.query;
+    if (!brand) return res.json([]);
+    const models = await Car.find({ make: brand }).distinct('model');
+    res.json(models);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;
+
