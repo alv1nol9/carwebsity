@@ -5,11 +5,11 @@ const carSchema = new mongoose.Schema({
   model: String,
   year: Number,
   price: Number,
-  image: String,          // for old code, keep it for now
-  images: [String],       // new: multiple images
-  description: String
+  mileage: Number,   // NEW
+  drive: String,     // NEW (e.g., "4WD", "FWD", "RWD")
+  fuelType: String,  // NEW (e.g., "Petrol", "Diesel", "Electric")
+  images: [String],
+  // description: String, // REMOVED
 });
 
-const Car = mongoose.model('Car', carSchema);
-
-module.exports = Car;
+module.exports = mongoose.model('Car', carSchema);

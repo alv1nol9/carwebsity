@@ -1,153 +1,198 @@
+import React, { useState, useEffect } from 'react';
+import "../styles/searchbar.css"
 
-import React, { useState } from 'react';
-import '../styles/searchbar.css';
+const driveOptions = ["", "4WD", "FWD", "RWD"];
+const fuelTypes = ["", "Petrol", "Diesel", "Electric"];
 
 const budgetRanges = [
-  { label: '0 - 500K', value: '0-500K' },
-  { label: '500K - 1M', value: '500K-1M' },
-  { label: '1M - 2M', value: '1M-2M' },
-  { label: '2M - 3M', value: '2M-3M' },
-  { label: '3M - 5M', value: '3M-5M' },
-  { label: '5M - 10M', value: '5M-10M' },
-  { label: 'Above 10M', value: '10M+' },
+  { label: '0 - 500K', min: 0, max: 500000 },
+  { label: '500K - 1M', min: 500000, max: 1000000 },
+  { label: '1M - 2M', min: 1000000, max: 2000000 },
+  { label: '2M - 3M', min: 2000000, max: 3000000 },
+  { label: '3M - 5M', min: 3000000, max: 5000000 },
+  { label: '5M - 10M', min: 5000000, max: 10000000 },
+  { label: 'Above 10M', min: 10000000, max: undefined },
 ];
 
-const brands = ['Toyota', 'Mazda', 'Nissan', 'BMW', 'Subaru'];
-const models = {
-  Toyota: ['Mark X', 'Corolla', 'Vitz'],
-  Mazda: ['Axela', 'Demio'],
-  Nissan: ['Note', 'X-Trail'],
-  BMW: ['X5', '3 Series'],
-  Subaru: ['Forester', 'Impreza'],
-};
+export default function SearchBar({ onSearch }) {
+  // For dynamic makes/models from API
+  const [makes, setMakes] = useState([]);
+  const [models, setModels] = useState([]);
 
-const SearchBar = ({ onSearch }) => {
-  const [keyword, setKeyword] = useState('');
-  const [budget, setBudget] = useState('');
-  const [brand, setBrand] = useState('');
+  // Form state
+  const [make, setMake] = useState('');
   const [model, setModel] = useState('');
-  const [yearMin, setYearMin] = useState('');
-  const [yearMax, setYearMax] = useState('');
-  const [showAdvanced, setShowAdvanced] = useState(false);
+  const [year, setYear] = useState('');
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
+  const [minMileage, setMinMileage] = useState('');
+  const [maxMileage, setMaxMileage] = useState('');
+  const [drive, setDrive] = useState('');
+  const [fuelType, setFuelType] = useState('');
+  const [selectedBudget, setSelectedBudget] = useState('');
 
-  const handleBudgetClick = (value) => {
-    setBudget(value);
-    if (onSearch) onSearch({ budget: value }); // Optionally call parent
+  // Fetch all makes on mount
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/cars/brands`)
+      .then(res => res.json())
+      .then(data => setMakes(data));
+  }, []);
+
+  // Fetch models when make changes
+  useEffect(() => {
+    if (!make) {
+      setModels([]);
+      setModel('');
+      return;
+    }
+    fetch(`${import.meta.env.VITE_API_URL}/api/cars/models?brand=${make}`)
+      .then(res => res.json())
+      .then(data => setModels(data));
+  }, [make]);
+
+  const handleBudgetClick = (range) => {
+    setSelectedBudget(range.label);
+    setMinPrice(range.min || '');
+    setMaxPrice(range.max || '');
   };
 
-  const handleSearch = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (onSearch) {
-      onSearch({
-        keyword,
-        budget,
-        brand,
-        model,
-        yearMin,
-        yearMax,
-      });
-    } else {
-      console.log({ keyword, budget, brand, model, yearMin, yearMax });
-    }
+    const filters = {
+      make,
+      model,
+      year,
+      minPrice,
+      maxPrice,
+      minMileage,
+      maxMileage,
+      drive,
+      fuelType,
+    };
+    if (onSearch) onSearch(filters);
   };
 
   return (
     <aside className="car-search-sidebar">
-      <form onSubmit={handleSearch}>
-        {/* Keyword Search */}
+      <form onSubmit={handleSubmit}>
+        {/* Make/Brand */}
         <div className="search-section">
-          <label>Search vehicle</label>
+          <label>Brand</label>
+          <select value={make} onChange={e => setMake(e.target.value)}>
+            <option value="">All</option>
+            {makes.map((m) => (
+              <option key={m} value={m}>{m}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Model */}
+        <div className="search-section">
+          <label>Model</label>
+          <select value={model} onChange={e => setModel(e.target.value)} disabled={!models.length}>
+            <option value="">All</option>
+            {models.map((m) => (
+              <option key={m} value={m}>{m}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Year */}
+        <div className="search-section">
+          <label>Year</label>
           <input
-            type="text"
-            placeholder="Search vehicle name"
-            value={keyword}
-            onChange={e => setKeyword(e.target.value)}
+            type="number"
+            placeholder="e.g. 2017"
+            value={year}
+            onChange={e => setYear(e.target.value)}
+            min="1990"
+            max={new Date().getFullYear()}
           />
         </div>
 
-        {/* Budget Filter */}
+        {/* Budget quick buttons */}
         <div className="search-section">
-          <label>Filter by budget</label>
+          <label>Quick Budget</label>
           <div className="budget-buttons">
-            {budgetRanges.map(({ label, value }) => (
+            {budgetRanges.map(range => (
               <button
                 type="button"
-                key={value}
-                className={budget === value ? 'selected' : ''}
-                onClick={() => handleBudgetClick(value)}
+                key={range.label}
+                className={selectedBudget === range.label ? 'selected' : ''}
+                onClick={() => handleBudgetClick(range)}
               >
-                {label}
+                {range.label}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Advanced Search Toggle */}
+        {/* Min/Max Price manual */}
         <div className="search-section">
-          <button
-            type="button"
-            className="advanced-toggle"
-            onClick={() => setShowAdvanced(!showAdvanced)}
-          >
-            {showAdvanced ? 'Hide Advanced Search ▲' : 'Click here for Advanced search ▼'}
-          </button>
+          <label>Custom Price (KES)</label>
+          <input
+            type="number"
+            placeholder="Min Price"
+            value={minPrice}
+            onChange={e => {
+              setMinPrice(e.target.value);
+              setSelectedBudget('');
+            }}
+            min="0"
+          />
+          <input
+            type="number"
+            placeholder="Max Price"
+            value={maxPrice}
+            onChange={e => {
+              setMaxPrice(e.target.value);
+              setSelectedBudget('');
+            }}
+            min="0"
+          />
         </div>
 
-        {/* Advanced Search Fields */}
-        {showAdvanced && (
-          <>
-            {/* Brand & Model */}
-            <div className="search-section">
-              <label>Brand & Model</label>
-              <select value={brand} onChange={e => {
-                setBrand(e.target.value);
-                setModel('');
-              }}>
-                <option value="">Vehicle Brand</option>
-                {brands.map(b => <option key={b} value={b}>{b}</option>)}
-              </select>
-              <select value={model} onChange={e => setModel(e.target.value)} disabled={!brand}>
-                <option value="">Brand Model</option>
-                {brand && models[brand].map(m => <option key={m} value={m}>{m}</option>)}
-              </select>
-            </div>
-            {/* Year Range */}
-            <div className="search-section year-range">
-              <label>Year of Manufacture</label>
-              <input
-                type="number"
-                placeholder="Min YOM"
-                min="1990"
-                max={yearMax || 2024}
-                value={yearMin}
-                onChange={e => setYearMin(e.target.value)}
-              />
-              <input
-                type="number"
-                placeholder="Max YOM"
-                min={yearMin || 1990}
-                max="2024"
-                value={yearMax}
-                onChange={e => setYearMax(e.target.value)}
-              />
-            </div>
-            {/* Price (You can add more currency logic if needed) */}
-            {/* <div className="search-section">
-              <label>Price & Currency</label>
-              <input type="number" placeholder="Min Price" />
-              <input type="number" placeholder="Max Price" />
-              <select>
-                <option>KES</option>
-                <option>USD</option>
-              </select>
-            </div> */}
-          </>
-        )}
+        {/* Mileage */}
+        <div className="search-section">
+          <label>Mileage (km)</label>
+          <input
+            type="number"
+            placeholder="Min Mileage"
+            value={minMileage}
+            onChange={e => setMinMileage(e.target.value)}
+            min="0"
+          />
+          <input
+            type="number"
+            placeholder="Max Mileage"
+            value={maxMileage}
+            onChange={e => setMaxMileage(e.target.value)}
+            min="0"
+          />
+        </div>
+
+        {/* Drive */}
+        <div className="search-section">
+          <label>Drive</label>
+          <select value={drive} onChange={e => setDrive(e.target.value)}>
+            {driveOptions.map(opt => (
+              <option key={opt} value={opt}>{opt || "All"}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Fuel Type */}
+        <div className="search-section">
+          <label>Fuel Type</label>
+          <select value={fuelType} onChange={e => setFuelType(e.target.value)}>
+            {fuelTypes.map(ft => (
+              <option key={ft} value={ft}>{ft || "All"}</option>
+            ))}
+          </select>
+        </div>
 
         <button type="submit" className="search-btn">Search</button>
       </form>
     </aside>
   );
-};
-
-export default SearchBar;
+}

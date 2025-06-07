@@ -3,7 +3,7 @@ const router = express.Router();
 const Car = require('../models/Car');
 const { isAdmin } = require('../middleware/auth');
 
-// POST new car (admin only) — just saves data and Cloudinary URLs
+// POST new car (admin only)
 router.post('/', isAdmin, async (req, res) => {
   try {
     const {
@@ -11,12 +11,10 @@ router.post('/', isAdmin, async (req, res) => {
       model,
       year,
       price,
-      description,
       mileage,
       drive,
-      engineSize,
       fuelType,
-      images // <-- array of Cloudinary URLs
+      images // array of Cloudinary URLs
     } = req.body;
 
     const newCar = new Car({
@@ -24,12 +22,10 @@ router.post('/', isAdmin, async (req, res) => {
       model,
       year,
       price,
-      description,
       mileage,
       drive,
-      engineSize,
       fuelType,
-      images, // save the URLs directly
+      images,
     });
 
     await newCar.save();
@@ -40,10 +36,42 @@ router.post('/', isAdmin, async (req, res) => {
   }
 });
 
-// GET all cars
+// GET all cars, with filtering by query params
 router.get('/', async (req, res) => {
   try {
-    const cars = await Car.find();
+    const {
+      make,
+      model,
+      year,
+      minPrice,
+      maxPrice,
+      minMileage,
+      maxMileage,
+      drive,
+      fuelType
+    } = req.query;
+
+    // Build the filter object
+    let filter = {};
+
+    if (make) filter.make = make;
+    if (model) filter.model = model;
+    if (year) filter.year = Number(year);
+
+    if (minPrice || maxPrice) {
+      filter.price = {};
+      if (minPrice) filter.price.$gte = Number(minPrice);
+      if (maxPrice) filter.price.$lte = Number(maxPrice);
+    }
+    if (minMileage || maxMileage) {
+      filter.mileage = {};
+      if (minMileage) filter.mileage.$gte = Number(minMileage);
+      if (maxMileage) filter.mileage.$lte = Number(maxMileage);
+    }
+    if (drive) filter.drive = drive;
+    if (fuelType) filter.fuelType = fuelType;
+
+    const cars = await Car.find(filter);
     res.json(cars);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -72,8 +100,6 @@ router.delete('/:id', isAdmin, async (req, res) => {
   }
 });
 
-// ...your existing routes above...
-
 // GET all unique brands (makes)
 router.get('/brands', async (req, res) => {
   try {
@@ -97,4 +123,3 @@ router.get('/models', async (req, res) => {
 });
 
 module.exports = router;
-
