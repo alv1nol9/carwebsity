@@ -78,28 +78,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET a specific car by ID
-router.get('/:id', async (req, res) => {
-  try {
-    const car = await Car.findById(req.params.id);
-    if (!car) return res.status(404).json({ message: 'Car not found' });
-    res.json(car);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
-
-// DELETE a car (admin only)
-router.delete('/:id', isAdmin, async (req, res) => {
-  try {
-    const car = await Car.findByIdAndDelete(req.params.id);
-    if (!car) return res.status(404).json({ message: 'Car not found' });
-    res.json({ message: 'Car deleted successfully' });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
-
 // GET all unique brands (makes)
 router.get('/brands', async (req, res) => {
   try {
@@ -117,6 +95,28 @@ router.get('/models', async (req, res) => {
     if (!brand) return res.json([]);
     const models = await Car.find({ make: brand }).distinct('model');
     res.json(models);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// GET a specific car by ID
+router.get('/:id', async (req, res) => {
+  try {
+    const car = await Car.findById(req.params.id);
+    if (!car) return res.status(404).json({ message: 'Car not found' });
+    res.json(car);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// DELETE a car (admin only)
+router.delete('/:id', isAdmin, async (req, res) => {
+  try {
+    const car = await Car.findByIdAndDelete(req.params.id);
+    if (!car) return res.status(404).json({ message: 'Car not found' });
+    res.json({ message: 'Car deleted successfully' });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
