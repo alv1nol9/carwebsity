@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/searchbar.css'
 
 const driveOptions = ["", "4WD", "FWD", "RWD"];
 const fuelTypes = ["", "Petrol", "Diesel", "Electric"];
