@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import "../styles/searchbar.css"
 
 const driveOptions = ["", "4WD", "FWD", "RWD"];
 const fuelTypes = ["", "Petrol", "Diesel", "Electric"];
@@ -30,6 +29,7 @@ export default function SearchBar({ onSearch }) {
   const [drive, setDrive] = useState('');
   const [fuelType, setFuelType] = useState('');
   const [selectedBudget, setSelectedBudget] = useState('');
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
   // Fetch all makes on mount
   useEffect(() => {
@@ -75,7 +75,7 @@ export default function SearchBar({ onSearch }) {
   return (
     <aside className="car-search-sidebar">
       <form onSubmit={handleSubmit}>
-        {/* Make/Brand */}
+        {/* Brand/Make */}
         <div className="search-section">
           <label>Brand</label>
           <select value={make} onChange={e => setMake(e.target.value)}>
@@ -152,44 +152,60 @@ export default function SearchBar({ onSearch }) {
           />
         </div>
 
-        {/* Mileage */}
+        {/* Advanced Search Toggle */}
         <div className="search-section">
-          <label>Mileage (km)</label>
-          <input
-            type="number"
-            placeholder="Min Mileage"
-            value={minMileage}
-            onChange={e => setMinMileage(e.target.value)}
-            min="0"
-          />
-          <input
-            type="number"
-            placeholder="Max Mileage"
-            value={maxMileage}
-            onChange={e => setMaxMileage(e.target.value)}
-            min="0"
-          />
+          <button
+            type="button"
+            className="advanced-toggle"
+            onClick={() => setShowAdvanced(!showAdvanced)}
+          >
+            {showAdvanced ? 'Hide Advanced Search ▲' : 'Click here for Advanced search ▼'}
+          </button>
         </div>
 
-        {/* Drive */}
-        <div className="search-section">
-          <label>Drive</label>
-          <select value={drive} onChange={e => setDrive(e.target.value)}>
-            {driveOptions.map(opt => (
-              <option key={opt} value={opt}>{opt || "All"}</option>
-            ))}
-          </select>
-        </div>
+        {/* Advanced Filters */}
+        {showAdvanced && (
+          <>
+            {/* Mileage */}
+            <div className="search-section">
+              <label>Mileage (km)</label>
+              <input
+                type="number"
+                placeholder="Min Mileage"
+                value={minMileage}
+                onChange={e => setMinMileage(e.target.value)}
+                min="0"
+              />
+              <input
+                type="number"
+                placeholder="Max Mileage"
+                value={maxMileage}
+                onChange={e => setMaxMileage(e.target.value)}
+                min="0"
+              />
+            </div>
 
-        {/* Fuel Type */}
-        <div className="search-section">
-          <label>Fuel Type</label>
-          <select value={fuelType} onChange={e => setFuelType(e.target.value)}>
-            {fuelTypes.map(ft => (
-              <option key={ft} value={ft}>{ft || "All"}</option>
-            ))}
-          </select>
-        </div>
+            {/* Drive */}
+            <div className="search-section">
+              <label>Drive</label>
+              <select value={drive} onChange={e => setDrive(e.target.value)}>
+                {driveOptions.map(opt => (
+                  <option key={opt} value={opt}>{opt || "All"}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Fuel Type */}
+            <div className="search-section">
+              <label>Fuel Type</label>
+              <select value={fuelType} onChange={e => setFuelType(e.target.value)}>
+                {fuelTypes.map(ft => (
+                  <option key={ft} value={ft}>{ft || "All"}</option>
+                ))}
+              </select>
+            </div>
+          </>
+        )}
 
         <button type="submit" className="search-btn">Search</button>
       </form>
