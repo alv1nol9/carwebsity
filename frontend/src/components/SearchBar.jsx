@@ -5,7 +5,7 @@ const driveOptions = ["", "4WD", "FWD", "RWD"];
 const fuelTypes = ["", "Petrol", "Diesel", "Electric"];
 
 const budgetRanges = [
-  { label: '0 - 500K', min: 0, max: 500000 },
+  
   { label: '500K - 1M', min: 500000, max: 1000000 },
   { label: '1M - 2M', min: 1000000, max: 2000000 },
   { label: '2M - 3M', min: 2000000, max: 3000000 },
