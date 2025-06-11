@@ -68,7 +68,7 @@
 }
 
 .add-car-form button:hover {
-  background: linear-gradient(90deg, #5f23ae, #f57a98);
+  background: linear-gradient(white, black);
   transform: translateY(-2px) scale(1.025);
 }
 
