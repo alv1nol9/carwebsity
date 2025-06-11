@@ -28,7 +28,7 @@ app.use(cors({
   origin: [
     'https://carwebsity.vercel.app',
     'https://carwebsity-ek3x4pdna-alv1nols-projects.vercel.app',
-    'http://localhost:5173', // optional, for local dev
+    'http://localhost:5173', 
   ],
   credentials: true,
 }));
