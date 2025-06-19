@@ -33,15 +33,23 @@ const AddCar = () => {
 
   // 3. Upload images to backend and return Cloudinary URLs
   const uploadImages = async (files) => {
-    const formData = new FormData();
-    files.forEach(file => formData.append('images', file));
-    const res = await fetch(`${API_URL}/api/upload/multiple`, {
-      method: 'POST',
-      body: formData,
-    });
-    const data = await res.json();
-    return data.imageUrls; // <-- array of URLs
-  };
+  const formData = new FormData();
+  files.forEach(file => formData.append('images', file));
+
+  const res = await fetch(`${API_URL}/api/upload/multiple`, {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!res.ok) {
+    const text = await res.text(); // get raw HTML if it's an error
+    throw new Error(`Image upload failed: ${res.status} - ${text}`);
+  }
+
+  const data = await res.json();
+  return data.imageUrls;
+};
+
 
   // 4. Handle form submit
   const handleSubmit = async (e) => {
