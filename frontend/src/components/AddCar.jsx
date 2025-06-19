@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../styles/addcar.css"
+import "../styles/addcar.css";
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 const AddCar = () => {
@@ -15,58 +15,55 @@ const AddCar = () => {
     fuelType: '',
     images: [],
   });
+
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [previews, setPreviews] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // 1. Handle text/number inputs
+  // Handle input changes
   const handleChange = (e) => {
     setCar({ ...car, [e.target.name]: e.target.value });
   };
 
-  // 2. Handle file input
+  // Handle file input
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
     setSelectedFiles(files);
-    setPreviews(files.map((file) => URL.createObjectURL(file)));
+    setPreviews(files.map(file => URL.createObjectURL(file)));
   };
 
-  // 3. Upload images to backend and return Cloudinary URLs
+  // Upload images to backend
   const uploadImages = async (files) => {
-  const formData = new FormData();
-  files.forEach(file => formData.append('images', file));
+    const formData = new FormData();
+    files.forEach(file => formData.append('images', file)); // MUST match multer field
 
-  const res = await fetch(`${API_URL}/api/upload/multiple`, {
-    method: 'POST',
-    body: formData,
-  });
+    const res = await fetch(`${API_URL}/api/upload/multiple`, {
+      method: 'POST',
+      body: formData,
+    });
 
-  if (!res.ok) {
-    const text = await res.text(); // get raw HTML if it's an error
-    throw new Error(`Image upload failed: ${res.status} - ${text}`);
-  }
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`Image upload failed: ${res.status} - ${text}`);
+    }
 
-  const data = await res.json();
-  return data.imageUrls;
-};
+    const data = await res.json();
+    return data.imageUrls;
+  };
 
-
-  // 4. Handle form submit
+  // Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      // a) Upload images first
       let imageUrls = [];
       if (selectedFiles.length > 0) {
         imageUrls = await uploadImages(selectedFiles);
       }
 
-      // b) Prepare car object
       const token = localStorage.getItem('token');
       const carData = { ...car, images: imageUrls };
 
-      // c) Submit car details + images to /api/cars
       const res = await fetch(`${API_URL}/api/cars`, {
         method: 'POST',
         headers: {
@@ -109,14 +106,12 @@ const AddCar = () => {
         <textarea name="description" placeholder="Description" value={car.description} onChange={handleChange} />
 
         <label>Car Images (You can select multiple):</label>
-      <input
-        type="file"
-        name="images"
-        accept="image/*"
-        multiple
-        onChange={handleFileChange}
-      />
-
+        <input
+          type="file"
+          accept="image/*"
+          multiple
+          onChange={handleFileChange}
+        />
 
         {previews.length > 0 && (
           <div style={{ display: 'flex', gap: 10, margin: '12px 0', flexWrap: 'wrap' }}>
