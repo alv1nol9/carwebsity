@@ -33,23 +33,32 @@ const AddCar = () => {
   };
 
   // Upload images to backend
-  const uploadImages = async (files) => {
-    const formData = new FormData();
-    files.forEach(file => formData.append('images', file)); // MUST match multer field
+const uploadImages = async (files) => {
+  const formData = new FormData();
+  files.forEach(file => formData.append('images', file));
 
-    const res = await fetch(`${API_URL}/api/upload/multiple`, {
-      method: 'POST',
-      body: formData,
-    });
+  const token = localStorage.getItem('token');
+  if (!token) {
+    throw new Error('You must be logged in to upload images.');
+  }
 
-    if (!res.ok) {
-      const text = await res.text();
-      throw new Error(`Image upload failed: ${res.status} - ${text}`);
-    }
+  const res = await fetch(`${API_URL}/api/upload/multiple`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`, // 👈 Token added here
+    },
+    body: formData,
+  });
 
-    const data = await res.json();
-    return data.imageUrls;
-  };
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Image upload failed: ${res.status} - ${text}`);
+  }
+
+  const data = await res.json();
+  return data.imageUrls;
+};
+
 
   // Submit form
   const handleSubmit = async (e) => {
