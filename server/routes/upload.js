@@ -5,7 +5,7 @@ const { storage } = require('../utils/cloudinary');
 
 const upload = multer({ storage });
 
-router.post('/multiple', upload.array('images', 5), async (req, res) => {
+router.post('/multiple', upload.array('images', 15), async (req, res) => {
   try {
     console.log('📥 Upload endpoint hit');
     console.log('🧾 req.body:', req.body);
