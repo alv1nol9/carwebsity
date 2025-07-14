@@ -1,12 +1,13 @@
+
 .car-search-sidebar {
-  background: #192138;                  /* Deep navy blue */
+  background: #000;
   color: #fff;
   border-radius: 14px;
   padding: 36px 26px 26px 26px;
   min-width: 260px;
   max-width: 350px;
-  box-shadow: 0 4px 24px 0 #1a22361a;
-  border: 2.5px solid #e6b80033;        /* Subtle gold border */
+  box-shadow: 0 4px 24px 0 #e6b80022;
+  border: 2.5px solid #e6b800;
 }
 
 .car-search-sidebar label {
@@ -22,24 +23,26 @@
   width: 100%;
   padding: 9px 10px;
   margin-bottom: 16px;
-  border: 1.5px solid #e6b80033;
+  border: 1.5px solid #e6b800;
   border-radius: 6px;
-  background: #20294a;
+  background: #111;
   color: #fff;
   font-size: 1rem;
   outline: none;
-  transition: border 0.16s;
+  transition: border 0.16s, background 0.16s, color 0.16s;
 }
 
 .car-search-sidebar input:focus,
 .car-search-sidebar select:focus {
   border: 1.5px solid #e6b800;
+  background: #222;
+  color: #e6b800;
 }
 
 .budget-buttons button {
-  background: none;
+  background: #000;
   color: #e6b800;
-  border: 1.3px solid #e6b80080;
+  border: 1.3px solid #e6b800;
   border-radius: 8px;
   padding: 7px 15px;
   margin: 0 9px 9px 0;
@@ -52,8 +55,8 @@
 .budget-buttons button.selected,
 .budget-buttons button:hover {
   background: #e6b800;
-  color: #192138;
-  border: 1.3px solid #e6b800;
+  color: #fff;
+  border: 1.3px solid #fff;
 }
 
 .advanced-toggle {
@@ -75,8 +78,8 @@
 
 .search-btn {
   width: 100%;
-  background: linear-gradient(90deg, #e6b800 70%, #fff 120%);
-  color: #192138;
+  background: linear-gradient(90deg, #e6b800 70%, #000 120%);
+  color: #e6b800;
   font-weight: 700;
   font-size: 1.15rem;
   padding: 12px 0 10px 0;
@@ -90,12 +93,11 @@
 }
 
 .search-btn:hover {
-  background: linear-gradient(90deg, #192138 40%, #e6b800 100%);
+  background: linear-gradient(90deg, #000 40%, #e6b800 100%);
   color: #fff;
   transform: translateY(-2px) scale(1.025);
 }
 
-/* For links in the sidebar (advanced search, etc) */
 .car-search-sidebar a {
   color: #e6b800;
   text-decoration: underline;

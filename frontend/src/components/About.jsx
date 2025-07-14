@@ -17,7 +17,7 @@ export default function About() {
         <source src="/video(1).mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      <div className="about-card">
+      <div className="about-card translucent-bg">
         <div className="about-title">
           About <span className="brand">Valley Road</span> <span className="gold">Motors</span>
         </div>

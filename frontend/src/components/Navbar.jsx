@@ -32,11 +32,14 @@ const Navbar = () => {
       </div>
       <div className="navbar-right">
         {!isLoggedIn() && (
-          <Link to="/login" className="login-btn">Login</Link>
-                  )}
-          {isLoggedIn() && (
-            <button onClick={handleLogout} className="login-btn">Logout</button>
-          )}
+          <>
+            <Link to="/login" className="login-btn">Login</Link>
+            <Link to="/register" className="register-btn">Register</Link>
+          </>
+        )}
+        {isLoggedIn() && (
+          <button onClick={handleLogout} className="login-btn">Logout</button>
+        )}
 
       </div>
     </nav>

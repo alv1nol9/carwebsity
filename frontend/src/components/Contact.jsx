@@ -4,8 +4,18 @@ import "../styles/Contact.css";
 
 export default function Contact() {
   return (
-    <div className="contact-page">
-      <div className="contact-content-wrapper">
+    <div className="contact-page" style={{ position: 'relative', minHeight: '100vh', background: '#000' }}>
+      {/* Background video (hidden, but can be toggled if needed) */}
+      {/* <video
+        className="contact-bg-video"
+        src="/video(3).mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        style={{ objectFit: 'cover', width: '100vw', height: '100vh', position: 'fixed', left: 0, top: 0, zIndex: 0 }}
+      /> */}
+      <div className="contact-content-wrapper" style={{ position: 'relative', zIndex: 2, background: 'rgba(0,0,0,0.85)', borderRadius: '18px', padding: '32px', margin: '32px auto', maxWidth: '900px', boxShadow: '0 4px 32px #000' }}>
         {/* Info Card */}
         <div className="contact-info-card">
           <h2 className="contact-title">Contact Us</h2>

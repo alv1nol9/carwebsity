@@ -9,7 +9,9 @@ import AddCar from './components/AddCar';
 import AdminRoute from './components/AdminRoute';
 import About from './components/About'; 
 import Contact from './components/Contact'; 
+
 import CarsPage from './components/CarsPage';
+import Cart from './components/Cart';
 
 function NotFound() {
   return (
@@ -31,12 +33,13 @@ export default function App() {
       <main className="container mx-auto p-4">
         <Routes>
           <Route path="/" element={<Home />} />
-         <Route path="/cars" element={<CarsPage />} />
+          <Route path="/cars" element={<CarsPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/cars/:id" element={<CarDetails />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/cart" element={<Cart />} />
           <Route
             path="/admin/add-car"
             element={

@@ -1,6 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { isAdmin } from "../utils/auth";
+  const [cartMsg, setCartMsg] = useState("");
+  const handleAddToCart = async () => {
+    setCartMsg("");
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setCartMsg("You must be logged in to add to cart.");
+      return;
+    }
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/cart/add`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ carId: car._id }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to add to cart");
+      setCartMsg("Added to cart!");
+    } catch (err) {
+      setCartMsg(err.message);
+    }
+  };
 import "../styles/cardetails.css";
 
 const CarDetails = () => {
@@ -107,10 +128,14 @@ const CarDetails = () => {
             <a href="tel:0700000000" className="call-btn">
               📞 Call now
             </a>
+            <button className="add-cart-btn" onClick={handleAddToCart} style={{marginLeft:8}}>
+              Add to Cart
+            </button>
             {isAdmin() && (
               <button className="delete-btn" onClick={handleDelete}>Delete</button>
             )}
           </div>
+          {cartMsg && <div style={{color: cartMsg === "Added to cart!" ? 'green' : 'red', marginTop: 8}}>{cartMsg}</div>}
           <div className="vehicle-details-table">
           <h3>Vehicle Details</h3>
           <table>

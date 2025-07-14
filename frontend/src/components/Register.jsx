@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/login.css";
+import GoogleAuthButton from "./GoogleAuthButton";
 
 const Register = () => {
   const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '' });
@@ -45,6 +46,34 @@ const Register = () => {
   return (
     <div className="login-container">
       <h2>Create Account</h2>
+      <GoogleAuthButton
+        onSuccess={async credentialResponse => {
+          setError("");
+          setSuccess("");
+          setLoading(true);
+          try {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/google`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ credential: credentialResponse.credential }),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || "Google sign up failed");
+            // Store JWT in localStorage or context as needed
+            localStorage.setItem("token", data.token);
+            setSuccess("Google sign up successful! Redirecting...");
+            setTimeout(() => navigate("/"), 1200);
+          } catch (err) {
+            setError(err.message);
+          } finally {
+            setLoading(false);
+          }
+        }}
+        onError={() => {
+          setError("Google sign up failed.");
+        }}
+        disabled={loading}
+      />
       <form className="login-form" onSubmit={handleSubmit}>
         <input
           type="text"

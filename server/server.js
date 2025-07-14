@@ -5,10 +5,12 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const path = require('path');
 
+
 // Route imports
 const carRoutes = require('./routes/carRoutes');
 const authRoutes = require('./routes/authRoutes');
 const uploadRoutes = require('./routes/upload'); // We'll create this file
+const cartRoutes = require('./routes/cartRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -28,10 +30,12 @@ app.use(express.json());
 // --- Serve Uploaded Images ---
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+
 // --- API Routes ---
 app.use('/api/cars', carRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/cart', cartRoutes);
 
 console.log('🔌 Mounted /api/cars, /api/auth, and /api/upload');
 

@@ -12,65 +12,94 @@ const CarGrid = ({ cars, loading }) => (
     ) : (
       <div className="car-grid">
         {cars.map((car) => (
-        <div className="car-card-dark" key={car._id}>
-          <div className="car-img-wrap-dark">
-          <img
-              src={
-                car.images && car.images.length > 0
-                  ? (
-                      car.images[0].startsWith('http')
-                        ? car.images[0]
-                        : `${import.meta.env.VITE_API_URL}${car.images[0]}`
-                    )
-                  : car.image
-                    ? (
-                        car.image.startsWith('http')
-                          ? car.image
-                          : `${import.meta.env.VITE_API_URL}${car.image}`
-                      )
-                    : '/placeholder.jpg'
-              }
-              alt={`${car.make} ${car.model}`}
-              className="car-img-dark"
-              onError={e => { e.target.onerror = null; e.target.src = '/placeholder.jpg'; }}
-            />
-
-
-            {car.status === "Available" && (
-              <span className="car-status-badge">AVAILABLE</span>
-            )}
-          </div>
-          <div className="car-card-body-dark">
-            <div className="car-info-row">
-              <span className="car-year-dark">{car.year}</span>
-              <span className="car-make-dark">{car.make} {car.model}</span>
-            </div>
-            <div className="car-labels-row">
-              <span className="car-label">Automatic</span>
-              <span className="car-label">2000 CC</span>
-              <span className="car-label">{car.origin || "Kenyan Used"}</span>
-            </div>
-            <div className="car-desc">
-              <span>
-                {car.description?.slice(0, 120) || "No description available."}{car.description && car.description.length > 120 && "..."}
-              </span>
-            </div>
-            <div className="car-price-row-dark">
-              <span className="car-price-dark">
-                KES {Number(car.price).toLocaleString()}
-              </span>
-              <span className="in-stock-badge">In-house Stock</span>
-            </div>
-            <Link to={`/cars/${car._id}`} className="view-btn-dark">
-              View Car
-            </Link>
-          </div>
-        </div>
-
+          <CarCardWithCart car={car} key={car._id} />
         ))}
       </div>
     )}
   </section>
 );
+
+function AddToCartButton({ carId }) {
+  const [msg, setMsg] = React.useState("");
+  const handleAdd = async () => {
+    setMsg("");
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setMsg("Login to add to cart");
+      return;
+    }
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/cart/add`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ carId }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to add");
+      setMsg("Added!");
+    } catch (err) {
+      setMsg(err.message);
+    }
+  };
+  return <button className="add-cart-btn" onClick={handleAdd} style={{marginTop:8}}>{msg ? msg : "Add to Cart"}</button>;
+}
+
+function CarCardWithCart({ car }) {
+  return (
+    <div className="car-card-dark">
+      <div className="car-img-wrap-dark">
+        <img
+          src={
+            car.images && car.images.length > 0
+              ? (
+                  car.images[0].startsWith('http')
+                    ? car.images[0]
+                    : `${import.meta.env.VITE_API_URL}${car.images[0]}`
+                )
+              : car.image
+                ? (
+                    car.image.startsWith('http')
+                      ? car.image
+                      : `${import.meta.env.VITE_API_URL}${car.image}`
+                  )
+                : '/placeholder.jpg'
+          }
+          alt={`${car.make} ${car.model}`}
+          className="car-img-dark"
+          onError={e => { e.target.onerror = null; e.target.src = '/placeholder.jpg'; }}
+        />
+        {car.status === "Available" && (
+          <span className="car-status-badge">AVAILABLE</span>
+        )}
+      </div>
+      <div className="car-card-body-dark">
+        <div className="car-info-row">
+          <span className="car-year-dark">{car.year}</span>
+          <span className="car-make-dark">{car.make} {car.model}</span>
+        </div>
+        <div className="car-labels-row">
+          <span className="car-label">Automatic</span>
+          <span className="car-label">2000 CC</span>
+          <span className="car-label">{car.origin || "Kenyan Used"}</span>
+        </div>
+        <div className="car-desc">
+          <span>
+            {car.description?.slice(0, 120) || "No description available."}{car.description && car.description.length > 120 && "..."}
+          </span>
+        </div>
+        <div className="car-price-row-dark">
+          <span className="car-price-dark">
+            KES {Number(car.price).toLocaleString()}
+          </span>
+          <span className="in-stock-badge">In-house Stock</span>
+        </div>
+        <Link to={`/cars/${car._id}`} className="view-btn-dark">
+          View Car
+        </Link>
+        <AddToCartButton carId={car._id} />
+      </div>
+    </div>
+  );
+}
 
 export default CarGrid;
