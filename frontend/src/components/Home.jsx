@@ -19,11 +19,14 @@ export default function Home() {
 
   return (
     <>
-      {/* HERO SECTION */}
+      {/* CAR BRANDS SECTION */}
+      <CarBrandsGrid />
+
+      {/* FULLSCREEN VIDEO HERO SECTION BELOW BRANDS */}
       <div className="main-hero">
         <video
           className="hero-bg-video"
-          src="/video.mp4"
+          src="/home-bg.mp4"
           autoPlay
           loop
           muted
@@ -39,9 +42,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      {/* EVERYTHING ELSE GOES OUTSIDE .main-hero */}
-      <CarBrandsGrid />
       <Footer />
     </>
   );
