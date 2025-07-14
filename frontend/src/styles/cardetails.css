@@ -5,7 +5,6 @@
   flex-direction: column;
   align-items: center;
   padding: 36px 0;
-}
 
 .car-detail-main {
   display: flex;
@@ -123,7 +122,67 @@
   text-decoration: none;
   transition: background 0.15s;
 }
-.wa-btn:hover { background: #128c7e; }
+  .add-cart-btn, .wa-btn, .call-btn, .delete-btn {
+    background: #e6b800;
+    color: #000;
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 10px #e6b80033;
+    transition: background 0.18s, color 0.18s, transform 0.18s, box-shadow 0.18s;
+    position: relative;
+    overflow: hidden;
+  }
+  .add-cart-btn:hover, .wa-btn:hover, .call-btn:hover, .delete-btn:hover {
+    background: #fff;
+    color: #e6b800;
+    transform: scale(1.06) translateY(-2px) rotate(-1deg);
+    box-shadow: 0 6px 24px #e6b80055;
+  }
+  .add-cart-btn:active, .wa-btn:active, .call-btn:active, .delete-btn:active {
+    transform: scale(0.97);
+    box-shadow: 0 1px 4px #e6b80033;
+  }
+
+  /* Animated ripple effect on click */
+  .add-cart-btn::after, .wa-btn::after, .call-btn::after, .delete-btn::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(230,184,0,0.18);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    transition: width 0.4s cubic-bezier(.4,0,.2,1), height 0.4s cubic-bezier(.4,0,.2,1), opacity 0.4s;
+    opacity: 0;
+    z-index: 1;
+  }
+  .add-cart-btn:active::after, .wa-btn:active::after, .call-btn:active::after, .delete-btn:active::after {
+    width: 180px;
+    height: 180px;
+    opacity: 0.25;
+    transition: 0s;
+  }
+
+  /* Keep delete button red */
+  .delete-btn {
+    background: #e74c3c;
+    color: #fff;
+  }
+  .delete-btn:hover {
+    background: #fff;
+    color: #e74c3c;
+    box-shadow: 0 6px 24px #e74c3c55;
+  }
+  .delete-btn:active {
+    box-shadow: 0 1px 4px #e74c3c33;
+  }
+}
 
 .call-btn {
   background: #181f32;

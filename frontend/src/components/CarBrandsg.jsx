@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/home.css"
 
+
 const brands = [
   { name: "Toyota", logo: "https://logo.clearbit.com/toyota.com" },
   { name: "Mazda", logo: "https://logo.clearbit.com/mazda.com" },
@@ -17,15 +18,14 @@ const brands = [
   // Luxury brands
   { name: "Lamborghini", logo: "https://logo.clearbit.com/lamborghini.com" },
   { name: "Aston Martin", logo: "https://logo.clearbit.com/astonmartin.com" },
-  { name: "Ferrari", logo: "https://logo.clearbit.com/ferrari.com" },
   { name: "Porsche", logo: "https://logo.clearbit.com/porsche.com" },
   { name: "Bentley", logo: "https://logo.clearbit.com/bentleymotors.com" },
   { name: "Rolls-Royce", logo: "https://logo.clearbit.com/rolls-roycemotorcars.com" },
-  { name: "McLaren", logo: "https://logo.clearbit.com/mclaren.com" },
-  { name: "Bugatti", logo: "https://logo.clearbit.com/bugatti.com" },
   { name: "Maserati", logo: "https://logo.clearbit.com/maserati.com" },
-  { name: "Jaguar", logo: "https://logo.clearbit.com/jaguar.com" },
 ];
+
+// Ensure even number of logos for grid symmetry
+const evenBrands = brands.length % 2 === 0 ? brands : [...brands, { name: "", logo: "" }];
 
 export default function CarBrandsGrid() {
   return (
@@ -35,11 +35,15 @@ export default function CarBrandsGrid() {
         Find your next car by exploring brands we stock and import.
       </p>
       <div className="brands-logo-grid">
-        {brands.map((b) => (
-          <div className="brand-logo-wrap" key={b.name}>
-            <img src={b.logo} alt={b.name} className="brand-logo-img" />
-            <span className="brand-logo-name">{b.name.toUpperCase()}</span>
-          </div>
+        {evenBrands.map((b, i) => (
+          b.logo ? (
+            <div className="brand-logo-wrap" key={b.name}>
+              <img src={b.logo} alt={b.name} className="brand-logo-img" />
+              <span className="brand-logo-name">{b.name.toUpperCase()}</span>
+            </div>
+          ) : (
+            <div className="brand-logo-wrap" key={"placeholder-"+i} style={{visibility:'hidden'}}></div>
+          )
         ))}
       </div>
       {/* SOCIAL MEDIA LINKS BELOW LOGOS */}

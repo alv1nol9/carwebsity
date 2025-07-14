@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import '../styles/login.css';
 import '../styles/loginVideo.css';
@@ -48,6 +48,55 @@ const Login = () => {
     }
   };
 
+  // Google Sign-In
+  const googleBtnRef = useRef(null);
+  useEffect(() => {
+    // Load Google script if not present
+    if (!window.google) {
+      const script = document.createElement('script');
+      script.src = 'https://accounts.google.com/gsi/client';
+      script.async = true;
+      script.onload = renderGoogleBtn;
+      document.body.appendChild(script);
+    } else {
+      renderGoogleBtn();
+    }
+    function renderGoogleBtn() {
+      if (window.google && googleBtnRef.current) {
+        window.google.accounts.id.initialize({
+          client_id: '254700000000-2v7g7g7g7g7g7g.apps.googleusercontent.com',
+          callback: handleGoogleResponse,
+        });
+        window.google.accounts.id.renderButton(googleBtnRef.current, {
+          theme: 'outline',
+          size: 'large',
+          width: 320,
+        });
+      }
+    }
+    // eslint-disable-next-line
+  }, []);
+
+  async function handleGoogleResponse(response) {
+    setError("");
+    setLoading(true);
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/google`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ credential: response.credential }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Google login failed');
+      localStorage.setItem('token', data.token);
+      navigate('/admin/add-car');
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div className="login-container">
       <video
@@ -96,6 +145,7 @@ const Login = () => {
 
         {error && <p className="error-msg" role="alert">{error}</p>}
       </form>
+      <div ref={googleBtnRef} style={{margin: '24px auto', display: 'flex', justifyContent: 'center'}}></div>
       <p style={{ marginTop: '1rem', textAlign: 'center' }}>
         New user? <Link to="/register">Create an account</Link>
       </p>

@@ -115,3 +115,41 @@
   color: #111;
   transform: translateY(-2px) scale(1.025);
 }
+/* --- Added missing grid and section styles for visibility --- */
+.car-grid-section {
+  padding: 40px 0 60px 0;
+  background: #181818;
+  min-height: 100vh;
+}
+.car-grid-title {
+  color: #e6b800;
+  font-size: 2.1rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 32px;
+  letter-spacing: 1px;
+}
+.car-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+.car-grid-loading, .car-grid-empty {
+  color: #fff;
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 40px;
+}
+
+/* Ensure CarsPage container is visible and not hidden by background */
+.cars-page-container {
+  min-height: 100vh;
+  background: #181818;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  padding: 40px 0 60px 0;
+}

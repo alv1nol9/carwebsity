@@ -21,12 +21,28 @@ const CarsPage = () => {
   const [filteredCars, setFilteredCars] = useState([]);
   const [loading, setLoading] = useState(true);
 
+
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/cars`)
-      .then((res) => res.json())
-      .then((data) => {
-        setCars(data);
-        setFilteredCars(data);
+      .then(async (res) => {
+        let data;
+        try {
+          data = await res.json();
+        } catch (e) {
+          console.error('Failed to parse JSON:', e);
+          setLoading(false);
+          return;
+        }
+        console.log('Fetched cars API response:', data);
+        if (Array.isArray(data)) {
+          setCars(data);
+          setFilteredCars(data);
+        } else {
+          setCars([]);
+          setFilteredCars([]);
+          // Optionally show error to user
+          alert('API did not return a car list. Check console for details.');
+        }
         setLoading(false);
       })
       .catch((err) => {
