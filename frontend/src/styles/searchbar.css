@@ -11,7 +11,7 @@
 }
 
 .car-search-sidebar label {
-  color: #e6b800;
+  color: #fff;
   font-weight: 700;
   letter-spacing: 0.3px;
   margin-bottom: 6px;
@@ -34,9 +34,9 @@
 
 .car-search-sidebar input:focus,
 .car-search-sidebar select:focus {
-  border: 1.5px solid #e6b800;
+  border: 1.5px solid #fff;
   background: #222;
-  color: #e6b800;
+  color: #fff;
 }
 
 .budget-buttons button {
@@ -55,7 +55,7 @@
 .budget-buttons button.selected,
 .budget-buttons button:hover {
   background: #e6b800;
-  color: #fff;
+  color: #000;
   border: 1.3px solid #fff;
 }
 
@@ -79,7 +79,7 @@
 .search-btn {
   width: 100%;
   background: linear-gradient(90deg, #e6b800 70%, #000 120%);
-  color: #e6b800;
+  color: #fff;
   font-weight: 700;
   font-size: 1.15rem;
   padding: 12px 0 10px 0;

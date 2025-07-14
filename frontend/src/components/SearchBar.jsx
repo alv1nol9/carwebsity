@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 import '../styles/searchbar.css';
 
 const budgetRanges = [
-  { label: '0 - 500K', value: '0-500K' },
-  { label: '500K - 1M', value: '500K-1M' },
   { label: '1M - 2M', value: '1M-2M' },
   { label: '2M - 3M', value: '2M-3M' },
   { label: '3M - 5M', value: '3M-5M' },

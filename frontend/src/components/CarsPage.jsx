@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import CarGrid from './CarGrid';
 import SearchBar from './SearchBar';
 
@@ -20,7 +21,13 @@ const CarsPage = () => {
   const [cars, setCars] = useState([]);
   const [filteredCars, setFilteredCars] = useState([]);
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
 
+  // Helper to get query params
+  function getQueryParam(param) {
+    const params = new URLSearchParams(location.search);
+    return params.get(param);
+  }
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/cars`)
@@ -33,14 +40,18 @@ const CarsPage = () => {
           setLoading(false);
           return;
         }
-        console.log('Fetched cars API response:', data);
         if (Array.isArray(data)) {
           setCars(data);
-          setFilteredCars(data);
+          // If brand param in URL, filter by brand
+          const brandParam = getQueryParam('brand');
+          if (brandParam) {
+            setFilteredCars(data.filter(car => car.make && car.make.toLowerCase() === brandParam.toLowerCase()));
+          } else {
+            setFilteredCars(data);
+          }
         } else {
           setCars([]);
           setFilteredCars([]);
-          // Optionally show error to user
           alert('API did not return a car list. Check console for details.');
         }
         setLoading(false);
@@ -49,7 +60,8 @@ const CarsPage = () => {
         console.error('Error fetching cars:', err);
         setLoading(false);
       });
-  }, []);
+    // eslint-disable-next-line
+  }, [location.search]);
 
   const handleSearch = (filters) => {
     let filtered = [...cars];

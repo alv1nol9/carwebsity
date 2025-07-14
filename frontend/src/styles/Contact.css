@@ -1,25 +1,43 @@
-body {
-  background: #f4f6fa;
+/* Translucent background for content box, matching About page */
+.translucent-bg {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
 }
+
+.luxury-glow {
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.animate-fade-in {
+  animation: fadeIn 1.2s cubic-bezier(0.4,0,0.2,1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
 
 .contact-page {
   min-height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  background: #f4f6fa;
+  /* background removed to allow video to show */
 }
 
 /* Contact card on top */
 .contact-info-card {
-  background: #fff;
   max-width: 700px;
   margin: 48px auto 28px auto;
-  border-radius: 16px;
-  box-shadow: 0 2px 16px 0 #1a223610;
+  border-radius: 0;
+  box-shadow: none;
   padding: 44px 36px 36px 36px;
-  border-left: 6px solid #e6b800;
-  border-top: 4px solid #192140;
+  border-left: none;
+  border-top: none;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -28,26 +46,32 @@ body {
 .contact-title {
   font-size: 2rem;
   font-weight: 900;
-  color: #192140;
+  color: #e6b800;
   margin-bottom: 24px;
   letter-spacing: -1px;
+  text-shadow: 0 2px 8px #000a, 0 0px 1px #fff2;
 }
 
 .contact-details {
   width: 100%;
-  color: #23243a;
-  font-size: 1.11rem;
+  color: #fff;
+  font-size: 1.13rem;
   line-height: 1.7;
+  font-weight: 600;
+  text-shadow: 0 2px 8px #000a;
 }
 
 .contact-details b {
-  color: #192140;
+  color: #e6b800;
+  font-weight: 900;
+  text-shadow: 0 2px 8px #000a, 0 0px 1px #fff2;
 }
 
 .contact-details a {
   color: #e6b800;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 900;
+  text-shadow: 0 2px 8px #000a, 0 0px 1px #fff2;
 }
 
 .contact-details a:hover {
@@ -63,8 +87,7 @@ body {
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 6px 24px #1a22360c;
-  background: #fff;
-  border: 2px solid #19214022;
+  background: transparent;
 }
 
 .contact-map-large iframe {

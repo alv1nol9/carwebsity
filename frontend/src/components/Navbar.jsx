@@ -27,7 +27,10 @@ const Navbar = () => {
         <Link to="/contact" className={`nav-link${location.pathname === '/contact' ? ' active' : ''}`}>Contact</Link>
         {/* Show Add Car for admin only */}
         {isAdmin() && (
-          <Link to="/admin/add-car" className="nav-link">Add Car</Link>
+          <>
+            <Link to="/admin/add-car" className="nav-link">Add Car</Link>
+            <Link to="/admin/remove-car" className="nav-link">Remove Cars</Link>
+          </>
         )}
       </div>
       <div className="navbar-right">

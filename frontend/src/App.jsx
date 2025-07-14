@@ -5,11 +5,12 @@ import Home from './components/Home';
 import CarDetails from './components/CarDetails';
 import Login from './components/Login';
 import Register from './components/Register';
+
 import AddCar from './components/AddCar';
+import AdminRemoveCar from './components/AdminRemoveCar';
 import AdminRoute from './components/AdminRoute';
 import About from './components/About'; 
 import Contact from './components/Contact'; 
-
 import CarsPage from './components/CarsPage';
 import Cart from './components/Cart';
 
@@ -45,6 +46,14 @@ export default function App() {
             element={
               <AdminRoute>
                 <AddCar />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/remove-car"
+            element={
+              <AdminRoute>
+                <AdminRemoveCar />
               </AdminRoute>
             }
           />

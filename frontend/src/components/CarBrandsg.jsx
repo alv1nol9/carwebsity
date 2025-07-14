@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/home.css"
 
 
@@ -28,6 +29,10 @@ const brands = [
 const evenBrands = brands.length % 2 === 0 ? brands : [...brands, { name: "", logo: "" }];
 
 export default function CarBrandsGrid() {
+  const navigate = useNavigate();
+  const handleBrandClick = (brand) => {
+    navigate(`/cars?brand=${encodeURIComponent(brand)}`);
+  };
   return (
     <section className="brands-section">
       <h2 className="brands-heading">Shop Cars by Brand</h2>
@@ -37,7 +42,7 @@ export default function CarBrandsGrid() {
       <div className="brands-logo-grid">
         {evenBrands.map((b, i) => (
           b.logo ? (
-            <div className="brand-logo-wrap" key={b.name}>
+            <div className="brand-logo-wrap" key={b.name} style={{cursor:'pointer'}} onClick={() => handleBrandClick(b.name)}>
               <img src={b.logo} alt={b.name} className="brand-logo-img" />
               <span className="brand-logo-name">{b.name.toUpperCase()}</span>
             </div>

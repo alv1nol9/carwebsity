@@ -19,7 +19,7 @@ const CarGrid = ({ cars, loading }) => (
   </section>
 );
 
-function AddToCartButton({ carId }) {
+function AddToCartButton({ car, disabled }) {
   const [msg, setMsg] = React.useState("");
   const handleAdd = async () => {
     setMsg("");
@@ -32,7 +32,7 @@ function AddToCartButton({ carId }) {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/cart/add`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ carId }),
+        body: JSON.stringify({ carId: car._id }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to add");
@@ -41,10 +41,15 @@ function AddToCartButton({ carId }) {
       setMsg(err.message);
     }
   };
-  return <button className="add-cart-btn" onClick={handleAdd} style={{marginTop:8}}>{msg ? msg : "Add to Cart"}</button>;
+  return (
+    <button className="add-cart-btn" onClick={handleAdd} style={{marginTop:8}} disabled={disabled}>
+      {disabled ? "Out of Stock" : (msg ? msg : "Add to Cart")}
+    </button>
+  );
 }
 
 function CarCardWithCart({ car }) {
+  const outOfStock = car.inStock === false;
   return (
     <div className="car-card-dark">
       <div className="car-img-wrap-dark">
@@ -68,8 +73,8 @@ function CarCardWithCart({ car }) {
           className="car-img-dark"
           onError={e => { e.target.onerror = null; e.target.src = '/placeholder.jpg'; }}
         />
-        {car.status === "Available" && (
-          <span className="car-status-badge">AVAILABLE</span>
+        {outOfStock && (
+          <span className="car-status-badge out-of-stock">OUT OF STOCK</span>
         )}
       </div>
       <div className="car-card-body-dark">
@@ -96,7 +101,7 @@ function CarCardWithCart({ car }) {
         <Link to={`/cars/${car._id}`} className="view-btn-dark">
           View Car
         </Link>
-        <AddToCartButton carId={car._id} />
+        <AddToCartButton car={car} disabled={outOfStock} />
       </div>
     </div>
   );

@@ -7,7 +7,8 @@ const carSchema = new mongoose.Schema({
   price: Number,
   image: String,          // for old code, keep it for now
   images: [String],       // new: multiple images
-  description: String
+  description: String,
+  inStock: { type: Boolean, default: true },
 });
 
 const Car = mongoose.model('Car', carSchema);
