@@ -1,5 +1,5 @@
 .about-section {
-  background: #f4f6fa;
+  background: #000;
   min-height: 90vh;
   display: flex;
   flex-direction: column;
@@ -7,11 +7,11 @@
 }
 
 .about-card {
-  background: #fff;
+  background: rgba(255,255,255,0.92);
   max-width: 700px;
   margin: 44px auto 36px auto;
   border-radius: 16px;
-  box-shadow: 0 2px 18px 0 #1a223608;
+  box-shadow: 0 2px 18px 0 #e6b80044;
   padding: 42px 34px 32px 34px;
   display: flex;
   flex-direction: column;
@@ -21,18 +21,18 @@
 .about-title {
   font-size: 2.1rem;
   font-weight: 900;
-  color: #192140;
+  color: #fff;
   margin-bottom: 22px;
   letter-spacing: -1px;
 }
 .brand {
-  color: #192140;
+  color: #fff;
 }
 .gold {
   color: #e6b800;
 }
 .navy {
-  color: #192140;
+  color: #fff;
 }
 
 .about-icon {
@@ -50,7 +50,7 @@
   margin-top: 24px;
   margin-bottom: 10px;
   font-size: 1.16rem;
-  color: #192140;
+  color: #e6b800;
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -64,17 +64,17 @@
 .about-card li {
   margin-bottom: 10px;
   font-size: 1.03rem;
-  color: #23243a;
+  color: #000;
   display: flex;
   align-items: center;
 }
 
 .about-highlight {
-  background: #f6f2e5;
+  background: #000;
   border-left: 5px solid #e6b800;
   padding: 18px 20px;
   margin: 28px 0 16px 0;
-  color: #192140;
+  color: #fff;
   font-size: 1.08rem;
   font-weight: 600;
   border-radius: 7px;
@@ -82,7 +82,7 @@
 
 .about-contact {
   margin-top: 18px;
-  color: #23243a;
+  color: #000;
   font-size: 1.08rem;
 }
 .about-contact div {

@@ -1,11 +1,22 @@
 import React from "react";
 import Footer from "./Footer";
 import "../styles/About.css";
+import "../styles/aboutVideo.css";
 import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaUsers, FaCarSide, FaHandshake } from "react-icons/fa";
 
 export default function About() {
   return (
     <div className="about-section">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="background-video"
+      >
+        <source src="/video(1).mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
       <div className="about-card">
         <div className="about-title">
           About <span className="brand">Valley Road</span> <span className="gold">Motors</span>
@@ -20,7 +31,7 @@ export default function About() {
         <h3><FaCarSide className="about-icon navy" /> What We Offer</h3>
         <ul>
           <li><FaCarSide className="about-list-icon gold" /> Locally and internationally sourced vehicles</li>
-          <li><FaHandshake className="about-list-icon navy" /> Flexible SACCO-supported financing options</li>
+          <li><FaHandshake className="about-list-icon navy" /> Flexible Bank and SACCO-supported financing options</li>
           <li><FaUsers className="about-list-icon gold" /> Expert consultation and dedicated customer support</li>
           <li><FaCarSide className="about-list-icon navy" /> Vehicle resale services for private individuals</li>
         </ul>

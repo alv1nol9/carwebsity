@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import CarDetails from './components/CarDetails';
 import Login from './components/Login';
+import Register from './components/Register';
 import AddCar from './components/AddCar';
 import AdminRoute from './components/AdminRoute';
 import About from './components/About'; 
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="/cars/:id" element={<CarDetails />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route
             path="/admin/add-car"
             element={

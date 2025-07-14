@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import '../styles/login.css';
+import '../styles/loginVideo.css';
 
 const Login = () => {
   const [form, setForm] = useState({ email: '', password: '' });
@@ -49,6 +50,16 @@ const Login = () => {
 
   return (
     <div className="login-container">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="login-background-video"
+      >
+        <source src="/e969871212acba4efa66ca28ed1e94d4_720w.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
       <h2>Admin Login</h2>
       <form onSubmit={handleSubmit} noValidate>
         <div className="form-group">
@@ -85,6 +96,9 @@ const Login = () => {
 
         {error && <p className="error-msg" role="alert">{error}</p>}
       </form>
+      <p style={{ marginTop: '1rem', textAlign: 'center' }}>
+        New user? <Link to="/register">Create an account</Link>
+      </p>
     </div>
   );
 };
