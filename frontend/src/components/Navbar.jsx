@@ -34,16 +34,28 @@ const Navbar = () => {
         )}
       </div>
       <div className="navbar-right">
-        {!isLoggedIn() && (
+        <span
+          className="cart-icon-link"
+          title="View Cart"
+          style={{marginRight: '18px', cursor: 'pointer'}}
+          onClick={() => {
+            if (!isLoggedIn()) {
+              alert('Kindly login first');
+            } else {
+              navigate('/cart');
+            }
+          }}
+        >
+          <img src="/cart.svg" alt="Cart" style={{width: '28px', height: '28px', verticalAlign: 'middle'}} />
+        </span>
+        {isLoggedIn() ? (
+          <button onClick={handleLogout} className="login-btn">Logout</button>
+        ) : (
           <>
             <Link to="/login" className="login-btn">Login</Link>
             <Link to="/register" className="register-btn">Register</Link>
           </>
         )}
-        {isLoggedIn() && (
-          <button onClick={handleLogout} className="login-btn">Logout</button>
-        )}
-
       </div>
     </nav>
   );

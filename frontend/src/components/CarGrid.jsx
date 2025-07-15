@@ -101,7 +101,7 @@ function CarCardWithCart({ car }) {
         <Link to={`/cars/${car._id}`} className="view-btn-dark">
           View Car
         </Link>
-        <AddToCartButton car={car} disabled={outOfStock} />
+        {/* Cart button removed from featured cars as requested */}
       </div>
     </div>
   );

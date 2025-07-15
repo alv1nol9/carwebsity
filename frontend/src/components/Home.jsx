@@ -35,7 +35,6 @@ export default function Home() {
           <div className="hero-btn-row" style={{ display: 'flex', justifyContent: 'center', gap: '18px', marginBottom: '18px' }}>
             <button className="hero-btn main-btn" onClick={handleBrowseCars} style={{ fontSize: '1.2rem', padding: '12px 32px', borderRadius: '8px', background: '#e6b800', color: '#111', fontWeight: 600 }}>Browse Cars</button>
             <button className="hero-btn light-btn" onClick={handleImportQuote} style={{ fontSize: '1.2rem', padding: '12px 32px', borderRadius: '8px', background: '#fff', color: '#222', fontWeight: 600 }}>Get Import Quote</button>
-            <button className="hero-btn book-btn" onClick={handleTestDrive} style={{ fontSize: '1.2rem', padding: '12px 32px', borderRadius: '8px', background: '#222', color: '#e6b800', fontWeight: 600, border: '2px solid #e6b800' }}>Book Test Drive</button>
           </div>
         </div>
       </div>
@@ -43,16 +42,16 @@ export default function Home() {
       {/* CAR BRANDS SECTION BELOW HERO */}
       <CarBrandsGrid />
 
-      {/* SOCIAL MEDIA LINKS */}
-      <div className="social-links" style={{textAlign: 'center', margin: '32px 0', display: 'flex', justifyContent: 'center', gap: '32px'}}>
-        <a href="https://facebook.com/valleyroadmotors" target="_blank" rel="noopener noreferrer" style={{color:'#e6b800', fontSize:'2.5rem'}} title="Facebook">
-          <i className="fab fa-facebook"></i>
+      {/* SOCIAL MEDIA SECTION */}
+      <div style={{ margin: '32px 0 18px 0', textAlign: 'center' }}>
+        <div style={{ fontWeight: 700, fontSize: '1.18rem', color: '#fff', marginBottom: '12px', textShadow: '0 2px 8px #000a' }}>
+          Our social media platforms are:
+        </div>
+        <a href="https://facebook.com/valleyroadmotors" target="_blank" rel="noopener noreferrer" style={{ margin: '0 18px', display: 'inline-block' }}>
+          <img src="/facebook.svg" alt="Facebook" style={{ width: '38px', height: '38px', verticalAlign: 'middle', filter: 'drop-shadow(0 2px 8px #000a)' }} />
         </a>
-        <a href="https://instagram.com/valleyroadmotors" target="_blank" rel="noopener noreferrer" style={{color:'#e6b800', fontSize:'2.5rem'}} title="Instagram">
-          <i className="fab fa-instagram"></i>
-        </a>
-        <a href="https://twitter.com/valleyroadmotors" target="_blank" rel="noopener noreferrer" style={{color:'#e6b800', fontSize:'2.5rem'}} title="Twitter">
-          <i className="fab fa-twitter"></i>
+        <a href="https://instagram.com/valleyroadmotors" target="_blank" rel="noopener noreferrer" style={{ margin: '0 18px', display: 'inline-block' }}>
+          <img src="/instagram.svg" alt="Instagram" style={{ width: '38px', height: '38px', verticalAlign: 'middle', filter: 'drop-shadow(0 2px 8px #000a)' }} />
         </a>
       </div>
       <Footer />
