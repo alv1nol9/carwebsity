@@ -31,8 +31,10 @@ app.use(cors({
     'http://localhost:5173', 
   ],
   credentials: true,
+  optionsSuccessStatus: 200,
 }));
 app.use(express.json());
+app.options('*', cors()); 
 
 // --- Serve Uploaded Images ---
 
