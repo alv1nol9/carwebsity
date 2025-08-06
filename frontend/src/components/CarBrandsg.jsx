@@ -4,6 +4,12 @@ import "../styles/home.css"
 
 
 const brands = [
+  { name: "Bentley", logo: "https://img.logo.dev/bentleymotors.com?token=pk_bulVufMiSXiuKfAtxVtX-w&retina=true"},
+  { name: "Maserati", logo: "https://img.logo.dev/maserati.com?token=pk_bulVufMiSXiuKfAtxVtX-w&retina=true"},
+  { name: "Land Rover", logo: "https://img.logo.dev/landrover.com?token=pk_bulVufMiSXiuKfAtxVtX-w&retina=true"},
+  { name: "Lamborghini", logo: "https://img.logo.dev/lamborghini.com?token=pk_bulVufMiSXiuKfAtxVtX-w&retina=true"},
+  { name: "Porsche", logo: "https://img.logo.dev/porsche.com?token=pk_bulVufMiSXiuKfAtxVtX-w&retina=true"},
+  { name: "Rolls Royce", logo: "https://img.logo.dev/rollsroyce.com?token=pk_bulVufMiSXiuKfAtxVtX-w&retina=true"},
   { name: "Toyota", logo: "https://logo.clearbit.com/toyota.com" },
   { name: "Mazda", logo: "https://logo.clearbit.com/mazda.com" },
   { name: "Nissan", logo: "https://logo.clearbit.com/nissan-global.com" },
@@ -22,6 +28,7 @@ const brands = [
   { name: "Ford", logo: "https://logo.clearbit.com/ford.com" },
   { name: "Jeep", logo: "https://logo.clearbit.com/jeep.com" },
   { name: "Lexus", logo: "https://logo.clearbit.com/lexus.com" },
+
   // Luxury brands
   { name: "Lamborghini", logo: "https://logo.clearbit.com/lamborghini.com" },
   { name: "Aston Martin", logo: "https://logo.clearbit.com/astonmartin.com" },
@@ -29,6 +36,10 @@ const brands = [
   { name: "Bentley", logo: "https://logo.clearbit.com/bentleymotors.com" },
   { name: "Rolls-Royce", logo: "https://logo.clearbit.com/rolls-roycemotorcars.com" },
   { name: "Maserati", logo: "https://logo.clearbit.com/maserati.com" },
+
+  { name: "Aston Martin", logo: "https://img.logo.dev/astonmartin.com?token=pk_bulVufMiSXiuKfAtxVtX-w&retina=true"}
+  // Add more brands as you want!
+
 ];
 
 // Ensure even number of logos for grid symmetry
