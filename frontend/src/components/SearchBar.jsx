@@ -5,21 +5,13 @@ const driveOptions = ["", "4WD", "FWD", "RWD"];
 const fuelTypes = ["", "Petrol", "Diesel", "Electric"];
 
 const budgetRanges = [
-<<<<<<< HEAD
-  
-  { label: '500K - 1M', min: 500000, max: 1000000 },
-  { label: '1M - 2M', min: 1000000, max: 2000000 },
-  { label: '2M - 3M', min: 2000000, max: 3000000 },
-  { label: '3M - 5M', min: 3000000, max: 5000000 },
-  { label: '5M - 10M', min: 5000000, max: 10000000 },
-  { label: 'Above 10M', min: 10000000, max: undefined },
-=======
+
   { label: '1M - 2M', value: '1M-2M' },
   { label: '2M - 3M', value: '2M-3M' },
   { label: '3M - 5M', value: '3M-5M' },
   { label: '5M - 10M', value: '5M-10M' },
   { label: 'Above 10M', value: '10M+' },
->>>>>>> kerrei/main
+
 ];
 
 export default function SearchBar({ onSearch }) {
