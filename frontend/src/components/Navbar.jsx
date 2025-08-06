@@ -27,17 +27,35 @@ const Navbar = () => {
         <Link to="/contact" className={`nav-link${location.pathname === '/contact' ? ' active' : ''}`}>Contact</Link>
         {/* Show Add Car for admin only */}
         {isAdmin() && (
-          <Link to="/admin/add-car" className="nav-link">Add Car</Link>
+          <>
+            <Link to="/admin/add-car" className="nav-link">Add Car</Link>
+            <Link to="/admin/remove-car" className="nav-link">Remove Cars</Link>
+          </>
         )}
       </div>
       <div className="navbar-right">
-        {!isLoggedIn() && (
-          <Link to="/login" className="login-btn">Login</Link>
-                  )}
-          {isLoggedIn() && (
-            <button onClick={handleLogout} className="login-btn">Logout</button>
-          )}
-
+        <span
+          className="cart-icon-link"
+          title="View Cart"
+          style={{marginRight: '18px', cursor: 'pointer'}}
+          onClick={() => {
+            if (!isLoggedIn()) {
+              alert('Kindly login first');
+            } else {
+              navigate('/cart');
+            }
+          }}
+        >
+          <img src="/cart.svg" alt="Cart" style={{width: '28px', height: '28px', verticalAlign: 'middle'}} />
+        </span>
+        {isLoggedIn() ? (
+          <button onClick={handleLogout} className="login-btn">Logout</button>
+        ) : (
+          <>
+            <Link to="/login" className="login-btn">Login</Link>
+            <Link to="/register" className="register-btn">Register</Link>
+          </>
+        )}
       </div>
     </nav>
   );

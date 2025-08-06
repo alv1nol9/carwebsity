@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import '../styles/login.css';
+import '../styles/loginVideo.css';
 
 const Login = () => {
   const [form, setForm] = useState({ email: '', password: '' });
@@ -47,8 +48,67 @@ const Login = () => {
     }
   };
 
+  // Google Sign-In
+  const googleBtnRef = useRef(null);
+  useEffect(() => {
+    // Load Google script if not present
+    if (!window.google) {
+      const script = document.createElement('script');
+      script.src = 'https://accounts.google.com/gsi/client';
+      script.async = true;
+      script.onload = renderGoogleBtn;
+      document.body.appendChild(script);
+    } else {
+      renderGoogleBtn();
+    }
+    function renderGoogleBtn() {
+      if (window.google && googleBtnRef.current) {
+        window.google.accounts.id.initialize({
+          client_id: '254700000000-2v7g7g7g7g7g7g.apps.googleusercontent.com',
+          callback: handleGoogleResponse,
+        });
+        window.google.accounts.id.renderButton(googleBtnRef.current, {
+          theme: 'outline',
+          size: 'large',
+          width: 320,
+        });
+      }
+    }
+    // eslint-disable-next-line
+  }, []);
+
+  async function handleGoogleResponse(response) {
+    setError("");
+    setLoading(true);
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/google`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ credential: response.credential }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Google login failed');
+      localStorage.setItem('token', data.token);
+      navigate('/admin/add-car');
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div className="login-container">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="login-background-video"
+      >
+        <source src="/e969871212acba4efa66ca28ed1e94d4_720w.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
       <h2>Admin Login</h2>
       <form onSubmit={handleSubmit} noValidate>
         <div className="form-group">
@@ -85,6 +145,10 @@ const Login = () => {
 
         {error && <p className="error-msg" role="alert">{error}</p>}
       </form>
+      <div ref={googleBtnRef} style={{margin: '24px auto', display: 'flex', justifyContent: 'center'}}></div>
+      <p style={{ marginTop: '1rem', textAlign: 'center' }}>
+        New user? <Link to="/register">Create an account</Link>
+      </p>
     </div>
   );
 };

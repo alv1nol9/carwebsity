@@ -1,38 +1,44 @@
 .about-section {
-  background: #f4f6fa;
+  background: #000;
   min-height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  position: relative;
+  z-index: 1;
 }
 
 .about-card {
-  background: #fff;
+  background: rgba(20, 20, 20, 0.82);
   max-width: 700px;
   margin: 44px auto 36px auto;
   border-radius: 16px;
-  box-shadow: 0 2px 18px 0 #1a223608;
+  box-shadow: 0 2px 18px 0 #e6b80044;
   padding: 42px 34px 32px 34px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  position: relative;
+  color: #fff;
+  text-shadow: 0 2px 8px #000a;
 }
 
 .about-title {
   font-size: 2.1rem;
   font-weight: 900;
-  color: #192140;
+  color: #e6b800;
   margin-bottom: 22px;
   letter-spacing: -1px;
+  text-shadow: 0 2px 8px #000a, 0 0px 1px #fff2;
 }
 .brand {
-  color: #192140;
+  color: #fff;
 }
 .gold {
   color: #e6b800;
 }
 .navy {
-  color: #192140;
+  color: #e6b800;
 }
 
 .about-icon {
@@ -50,10 +56,11 @@
   margin-top: 24px;
   margin-bottom: 10px;
   font-size: 1.16rem;
-  color: #192140;
+  color: #e6b800;
   font-weight: bold;
   display: flex;
   align-items: center;
+  text-shadow: 0 2px 8px #000a, 0 0px 1px #fff2;
 }
 
 .about-card ul {
@@ -64,25 +71,27 @@
 .about-card li {
   margin-bottom: 10px;
   font-size: 1.03rem;
-  color: #23243a;
+  color: #fff;
   display: flex;
   align-items: center;
+  text-shadow: 0 2px 8px #000a;
 }
 
 .about-highlight {
-  background: #f6f2e5;
+  background: #181818cc;
   border-left: 5px solid #e6b800;
   padding: 18px 20px;
   margin: 28px 0 16px 0;
-  color: #192140;
+  color: #e6b800;
   font-size: 1.08rem;
   font-weight: 600;
   border-radius: 7px;
+  text-shadow: 0 2px 8px #000a, 0 0px 1px #fff2;
 }
 
 .about-contact {
   margin-top: 18px;
-  color: #23243a;
+  color: #e6b800;
   font-size: 1.08rem;
 }
 .about-contact div {
@@ -105,4 +114,10 @@
   .about-title {
     font-size: 1.25rem;
   }
+}
+.translucent-bg {
+  background: rgba(20, 20, 20, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1.5px solid #e6b80055;
 }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import CarGrid from './CarGrid';
 import SearchBar from './SearchBar';
 
@@ -20,20 +21,47 @@ const CarsPage = () => {
   const [cars, setCars] = useState([]);
   const [filteredCars, setFilteredCars] = useState([]);
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
+
+  // Helper to get query params
+  function getQueryParam(param) {
+    const params = new URLSearchParams(location.search);
+    return params.get(param);
+  }
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/cars`)
-      .then((res) => res.json())
-      .then((data) => {
-        setCars(data);
-        setFilteredCars(data);
+      .then(async (res) => {
+        let data;
+        try {
+          data = await res.json();
+        } catch (e) {
+          console.error('Failed to parse JSON:', e);
+          setLoading(false);
+          return;
+        }
+        if (Array.isArray(data)) {
+          setCars(data);
+          // If brand param in URL, filter by brand
+          const brandParam = getQueryParam('brand');
+          if (brandParam) {
+            setFilteredCars(data.filter(car => car.make && car.make.toLowerCase() === brandParam.toLowerCase()));
+          } else {
+            setFilteredCars(data);
+          }
+        } else {
+          setCars([]);
+          setFilteredCars([]);
+          alert('API did not return a car list. Check console for details.');
+        }
         setLoading(false);
       })
       .catch((err) => {
         console.error('Error fetching cars:', err);
         setLoading(false);
       });
-  }, []);
+    // eslint-disable-next-line
+  }, [location.search]);
 
   const handleSearch = (filters) => {
     let filtered = [...cars];

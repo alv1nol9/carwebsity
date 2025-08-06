@@ -5,11 +5,17 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const path = require('path');
 
+
 // Route imports
 const carRoutes = require('./routes/carRoutes');
 const authRoutes = require('./routes/authRoutes');
+<<<<<<< HEAD
 const uploadRoutes = require('./routes/upload');
 
+=======
+const uploadRoutes = require('./routes/upload'); // We'll create this file
+const cartRoutes = require('./routes/cartRoutes');
+>>>>>>> kerrei/main
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -39,11 +45,13 @@ app.options('*', cors());
 // --- Serve Uploaded Images ---
 
 
+
 // --- API Routes ---
 app.use('/api/cars', carRoutes);
 app.use('/api/auth', authRoutes);
 
 app.use('/api/upload', uploadRoutes);
+app.use('/api/cart', cartRoutes);
 
 
 
