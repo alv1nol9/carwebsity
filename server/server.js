@@ -7,15 +7,14 @@ const path = require('path');
 
 
 // Route imports
-const carRoutes = require('./routes/carRoutes');
+
 const authRoutes = require('./routes/authRoutes');
-<<<<<<< HEAD
+
 const uploadRoutes = require('./routes/upload');
 
-=======
-const uploadRoutes = require('./routes/upload'); // We'll create this file
+
 const cartRoutes = require('./routes/cartRoutes');
->>>>>>> kerrei/main
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
