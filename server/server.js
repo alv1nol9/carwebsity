@@ -27,7 +27,7 @@ app.use(cors({
     'https://carwebsity.vercel.app',
     'https://carwebsity-ek3x4pdna-alv1nols-projects.vercel.app',
     'http://localhost:5173',
-    "https://www.valleyroadmotors.co.ke/"
+    "https://www.valleyroadmotors.co.ke"
   ],
   credentials: true,
   optionsSuccessStatus: 200,
