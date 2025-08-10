@@ -1,19 +1,18 @@
 // server/routes/authRoutes.js
 const express = require('express');
+const router = express.Router(); // ✅ Moved this to the top
 console.log('[authRoutes] module loaded');
-
 
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const { googleAuth } = require('../controllers/googleAuthController');
-// POST /api/auth/google (Google OAuth sign-in/register)
-router.post('/google', googleAuth);
 
-const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
 
+// POST /api/auth/google (Google OAuth sign-in/register)
+router.post('/google', googleAuth);
 
 // Health-check ping route
 router.get('/ping', (req, res) => {
@@ -69,5 +68,3 @@ router.post(
 );
 
 module.exports = router;
-
-

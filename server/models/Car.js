@@ -5,17 +5,14 @@ const carSchema = new mongoose.Schema({
   model: String,
   year: Number,
   price: Number,
-<<<<<<< HEAD
   mileage: Number,   
   drive: String,     
   fuelType: String,  
   images: [String],
-=======
-  image: String,          // for old code, keep it for now
-  images: [String],       // new: multiple images
+  image: String,        
   description: String,
   inStock: { type: Boolean, default: true },
->>>>>>> kerrei/main
+
 });
 
 module.exports = mongoose.model('Car', carSchema);
