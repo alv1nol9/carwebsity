@@ -1,20 +1,20 @@
 // server.js
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const path = require('path');
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const path = require("path");
 
 // Route imports
-const authRoutes = require('./routes/authRoutes');
-const uploadRoutes = require('./routes/upload');
-const cartRoutes = require('./routes/cartRoutes');
-const carRoutes = require('./routes/carRoutes'); // ✅ FIXED: added missing import
+const authRoutes = require("./routes/authRoutes");
+const uploadRoutes = require("./routes/upload");
+const cartRoutes = require("./routes/cartRoutes");
+const carRoutes = require("./routes/carRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-console.log("🚀 This is the REAL backend, running from", __dirname);
+console.log("🚀 Backend running from", __dirname);
 
 // --- Middleware ---
 app.use((req, res, next) => {
@@ -22,54 +22,75 @@ app.use((req, res, next) => {
   next();
 });
 
+const allowedOrigins = [
+  'https://carwebsity.vercel.app',
+  'https://carwebsity-ek3x4pdna-alv1nols-projects.vercel.app',
+  'http://localhost:5173',
+  'https://www.valleyroadmotors.co.ke',
+  'https://valleyroadmotors.co.ke'
+];
+
 app.use(cors({
-  origin: [
-    'https://carwebsity.vercel.app',
-    'https://carwebsity-ek3x4pdna-alv1nols-projects.vercel.app',
-    'http://localhost:5173',
-    "https://www.valleyroadmotors.co.ke"
-  ],
+  origin: function (origin, callback) {
+    // allow requests with no origin (like curl or Postman)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
-  optionsSuccessStatus: 200,
 }));
 
+
 app.use(express.json());
-app.options('*', cors());
-
-// --- Serve Uploaded Images ---
-
-// (optional static serve setup can go here if needed)
-// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.options("*", cors());
 
 // --- API Routes ---
-app.use('/api/cars', carRoutes);
-app.use('/api/auth', authRoutes);
-app.use('/api/upload', uploadRoutes);
-app.use('/api/cart', cartRoutes);
+app.use("/api/cars", carRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/upload", uploadRoutes);
+app.use("/api/cart", cartRoutes);
 
-console.log('🔌 Mounted /api/cars, /api/auth, and /api/upload');
+console.log("🔌 Mounted /api routes");
 
 // --- Base Route ---
-app.get('/', (req, res) => {
-  res.send('Welcome to the Carwebsity API!');
-});
-
-// --- Global Ping ---
-app.get('/ping-global', (req, res) => {
-  console.log('[global] /ping-global hit');
+app.get("/ping-global", (req, res) => {
+  console.log("[global] /ping-global hit");
   return res.json({ pong: true });
 });
 
+// --- Serve Uploaded Images (if needed) ---
+// app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+// --- Serve Frontend Build (React) ---
+const frontendPath = path.join(__dirname, "../frontend/dist");
+app.use(express.static(frontendPath));
+
+// Catch-all → send React index.html for non-API routes
+app.get("*", (req, res) => {
+  if (req.originalUrl.startsWith("/api")) {
+    return res.status(404).json({ message: "API route not found" });
+  }
+  res.sendFile(path.join(frontendPath, "index.html"));
+});
+
 // --- Connect to MongoDB and Start Server ---
+console.log("🔑 MONGO_URI from env:", process.env.MONGO_URI ? "Loaded" : "Missing");
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    console.log('✅ Connected to MongoDB');
-    app.listen(PORT, () => console.log(`🚗 Server running on http://localhost:${PORT}`));
+    console.log("✅ Connected to MongoDB");
+    app.listen(PORT, () =>
+      console.log(`🚗 Server running on http://localhost:${PORT}`)
+    );
   })
-  .catch(err => {
-    console.error('❌ MongoDB connection failed:', err);
+  .catch((err) => {
+    console.error("❌ MongoDB connection failed:", err);
     process.exit(1);
   });
 
-console.log(process.env.JWT_SECRET); // You may want to remove this in production
+// ⚠️ Remove this in production for security
+// console.log(process.env.JWT_SECRET);

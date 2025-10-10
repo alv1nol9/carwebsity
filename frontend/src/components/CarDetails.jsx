@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaCogs, FaCarSide, FaGasPump, FaPalette, FaChair, FaShareAlt } from "react-icons/fa";
 import { useParams, useNavigate } from "react-router-dom";
 import { isAdmin } from "../utils/auth";
+import '../styles/cardetails.css'
 
 function CarDetails() {
   const { id } = useParams();
@@ -12,6 +13,7 @@ function CarDetails() {
   const [showModal, setShowModal] = useState(false);
   const [modalImg, setModalImg] = useState("");
   const [cartMsg, setCartMsg] = useState("");
+  const [loan, setLoan] = useState({ amount: 0, years: 3, rate: 12 }); // 👈 moved here
 
   useEffect(() => {
     setLoading(true);
@@ -21,6 +23,8 @@ function CarDetails() {
         setCar(data);
         setLoading(false);
         setSelectedIdx(0);
+        // update loan amount once car data is loaded
+        if (data?.price) setLoan((l) => ({ ...l, amount: data.price }));
       })
       .catch(() => setLoading(false));
   }, [id]);
@@ -91,7 +95,7 @@ function CarDetails() {
     car.seats && { icon: <FaChair />, label: `${car.seats} seats` },
   ].filter(Boolean);
 
-  const [loan, setLoan] = useState({ amount: car?.price || 0, years: 3, rate: 12 });
+
   const monthly = loan.amount && loan.years && loan.rate
     ? ((loan.amount * (loan.rate / 100) / 12) + (loan.amount / (loan.years * 12))).toFixed(0)
     : 0;
