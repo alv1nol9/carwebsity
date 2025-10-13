@@ -31,7 +31,7 @@ export default function Home() {
         />
         <div className="hero-overlay" style={{ background: 'rgba(0,0,0,0.55)', position: 'absolute', width: '100vw', height: '100vh', top: 0, left: 0, zIndex: 1 }}></div>
         <div className="hero-center-content" style={{ position: 'relative', zIndex: 2, textAlign: 'center', color: '#fff', paddingTop: '12vh' }}>
-          <h1 style={{ fontSize: '3.5rem', fontWeight: 700, letterSpacing: '2px', marginBottom: '18px', textShadow: '0 2px 16px #000' }}>Rosita anabamba</h1>
+          <h1 style={{ fontSize: '3.5rem', fontWeight: 700, letterSpacing: '2px', marginBottom: '18px', textShadow: '0 2px 16px #000' }}>Find your Perfect  Ride</h1>
           <div className="hero-btn-row" style={{ display: 'flex', justifyContent: 'center', gap: '18px', marginBottom: '18px' }}>
             <button className="hero-btn main-btn" onClick={handleBrowseCars} style={{ fontSize: '1.2rem', padding: '12px 32px', borderRadius: '8px', background: '#e6b800', color: '#111', fontWeight: 600 }}>Browse Cars</button>
             <button className="hero-btn light-btn" onClick={handleImportQuote} style={{ fontSize: '1.2rem', padding: '12px 32px', borderRadius: '8px', background: '#fff', color: '#222', fontWeight: 600 }}>Get Import Quote</button>
