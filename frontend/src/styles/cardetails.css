@@ -279,3 +279,31 @@
     padding: 20px;
   }
 }
+.finance-box {
+  background: #1a1a1a; /* dark background instead of white blob */
+  border-radius: 10px;
+  padding: 16px;
+  margin: 18px 0;
+  color: #f5f5f5;
+}
+
+.finance-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.finance-inputs input {
+  background: #111;
+  color: #f5f5f5;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 4px 6px;
+  width: 70px;
+}
+
+.finance-inputs input:focus {
+  outline: 1px solid #e6b800;
+}
